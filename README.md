@@ -7,9 +7,9 @@ estado, validaciones de formularios y navegación dinámica.
 
 divididos en:
 
-(1) Módulo de autenticación y seguridad.
-(2) Dashboard y visualización de datos.
-(3) Operaciones bancarias.
+(1) Módulo de autenticación y seguridad
+(2) Dashboard y visualización de datos
+(3) Operaciones bancarias
 (4) Requerimientos técnicos y UX
 
 (!) ESTA PROHIBIDO USAR:
@@ -18,7 +18,7 @@ divididos en:
 - Todas las funciones, elementos y estilos deben implementarse utilizando JavaScript, HTML y CSS puros.
 
   
-- OBSERVACIONES A TOMAR EN CUENTA -
+(#)OBSERVACIONES A TOMAR EN CUENTA -
 
 - Se permite el uso de: HTML5, CSS3 y lenguaje JavaScript. Todas las funciones, elementos y estilos deben implementarse programando o maquetando con estas tecnologías puras.
 - Solo debe desarrollarse la parte ejecutable en el navegador (interfaz del lado del cliente).
