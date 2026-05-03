@@ -50,3 +50,43 @@
     font-weight: bold; /*grosor del texto en negrita */
     font-size: 1.2rem; /*tamaño del texto del logo*/
 }
+
+
+/* Estilos para el menu en el header */
+.marco-superior ul {
+    list-style: none;
+    display: flex;
+}
+
+.marco-superior li {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: var(--textoHeader);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* ocultar secciones y mostrarlas solo al hacer clic  */
+.seccion-target {
+    display: none; /* Oculto por defecto */
+    padding: 20px 0;
+}
+
+.seccion-target:target {
+    display: block; /* Se muestra cuando el ID esta en la URL */
+}
+
+/* Ocultar la vista-actual (Bienvenida) cuando una seccion esta activa */
+main:has(section:target) .vista-actual {
+    display: none;
+}
+
+.cerrar {
+    color: var(--colorFondo-header);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+}

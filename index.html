@@ -14,6 +14,15 @@
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
                     <span>Que tu padre es el negro jose?, que pena...</span> <!--titulo del logo, abierto al CSS-->
                 </div>
+
+                <!-- Navegacion de enlaces internos -->
+                <nav>
+                    <ul>
+                        <li><a href="#registro" class="nav-link">REGISTRO</a></li>
+                        <li><a href="#iniciosesion" class="nav-link">INICIO DE SESION</a></li>
+                        <li><a href="#informacion" class="nav-link">INFORMACION</a></li>
+                    </ul>
+                </nav>
             </div>
         </header>
         <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
@@ -23,6 +32,64 @@
             <div class="vista-actual">
                 <!-- Aquí debe ir el contenido del dashboard y las operaciones bancarias -->
                 <h1>Bienvenido al banco chingon</h1>
+            </div>
+
+            <!-- Secciones ocultas que solo aparecen con el clic -->
+            <div class="secciones-dinamicas">
+                <!-- Seccion donde se detalla la infomacion del banco -->
+                <section id="informacion" class="seccion-target">
+                    <h1>Info del Banco</h1>
+                    <p>toda la informacion relacionada al banco, que hace? las tranferencias, pago movil, etc. </p>
+                    <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
+
+                <!-- Formulario de registro -->
+                <section id="registro" class="seccion-target">
+                    <h2>Crea tu cuenta</h2>
+                    <form action="preguntas_seguridad.html" method="GET">
+                        <div>
+                            <label for="nombre">Nombre Completo:</label><br>
+                            <input type="text" id="nombre" name="usuario" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="cedula">Cedula:</label><br>
+                            <input type="text" id="cedula" name="cedula" pattern="\d*" placeholder="12345678" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="correo">Email:</label><br>
+                            <input type="email" id="correo" name="email" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="contraseña">Contraseña Numerica (Min 6 digitos)</label><br>
+                            <input type="password" id="contraseña" name="pass_reg" inputmode="numeric" pattern="[0-9]{6}" minlength="6" placeholder="******" required>
+                        </div>
+                        <br>
+                        <button type="submit">Siguentes: Preguntas de seguridad</button>
+                    </form>
+                    <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
+
+                <!-- Inicio de sesion -->
+                <section id="iniciosesion" class="seccion-target">
+                    <h2>Inicio de Sesion</h2>
+                    <form action="/procesar-iniciodesesion" method="POST">
+                        <div>
+                            <label for="login_nombre">Usuario:</label><br>
+                            <input type="text" id="login_nombre" name="usuario" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="login_pass">Contraseña:</label><br>
+                            <input type="password" id="login_pass" name="pass_login" inputmode="numeric" pattern="[0-9]{6}" minlength="6" placeholder="******" required>
+                        </div>
+                        <br>
+                        <button type="submit">Entrar al Sistema</button>
+                    </form>
+                    <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
             </div>
         </main>
     </body>

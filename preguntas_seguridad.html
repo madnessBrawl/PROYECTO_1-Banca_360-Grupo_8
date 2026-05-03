@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas de Seguridad</title>
+</head>
+<body>
+    <header>
+        <h1>Preguntas de Seguridad</h1>
+    </header>
+
+    <section>
+        <!--El formulario envia los datos y los redirige a iniciodesesion-->
+        <form action="index.html#iniciosesion" method="POST">
+            <!--Pregunta 1-->
+            <div>
+                <label>Pregunta 1:</label><br>
+                <select name="pregunta1" required>
+                    <option value="">Seleccione una pregunta...</option>
+                    <option value="pelicula">¿Nombre de su pelicula favorita?</option>
+                    <option value="mascota">¿Nombre de su primera mascota?</option>
+                    <option value="padres">¿Nombre de su padre o madre?</option>
+                </select><br>
+                <input type="text" name="respuesta1" placeholder="Respuesta" required>
+
+            </div>
+            <br>
+            <!--Pregunta 2-->
+            <div>
+                <label>Pregunta 2:</label><br>
+                <select name="pregunta1" required>
+                    <option value="">Seleccione una pregunta...</option>
+                    <option value="libro">¿Nombre de su libro favorito?</option>
+                    <option value="carro">¿Marca de su primer carro?</option>
+                    <option value="color">¿Color favorito?</option>
+                </select><br>
+                <input type="text" name="respuesta2" placeholder="Respuesta" required>
+
+            </div>
+            <br>
+
+            <!--Pregunta 3-->
+            <div>
+                <label>Pregunta 3:</label><br>
+                <select name="pregunta1" required>
+                    <option value="">Seleccione una pregunta...</option>
+                    <option value="escuela">¿Primera escuela donde estudiaste?</option>
+                    <option value="ciudad">¿Ciudad donde naciste?</option>
+                    <option value="postre">¿Postre favorito?</option>
+                </select><br>
+                <input type="text" name="respuesta1" placeholder="Respuesta" required>
+            </div>
+            <br>
+            <button type="submit">Finalizar Registro</button>
+
+        </form>
+    </section>
+</body>
+</html>
