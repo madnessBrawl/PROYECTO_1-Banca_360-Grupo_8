@@ -1,0 +1,52 @@
+/*Parametros globales de la pagina*/
+* {
+    box-sizing: border-box;
+    /* Padding y margin son 0 para que el marco no se y quede cubriendo la parte superior de la pagina*/
+    margin: 0;  /*eliminar el margen por defecto*/
+    padding: 0; /*eliminar el padding por defecto*/
+    font-family: Teachers, sans-serif; /*TIPOGRAFIA*/
+}
+
+/*Definir colores y tamaños base en el <html>*/
+/*variables globales (Custom Properties)*/
+:root {
+    --fondoColor: red;
+    --textoColor: #333;   /* Color del texto principal */
+    --colorFondo-header: #e8791f; /* Color de fondo del marco superior */
+    --textoHeader: white; /* Color del texto en el marco superior */
+    --maxAnchura: 1440px; /*define la anchura maxima de la pagina a 1440px(base para las paginas web)*/
+}
+
+
+/*Definir tamaño base de la pagina: 1440px*/
+.contenedor {
+    max-width: var(--maxAnchura); /* llamada a las variable global definida en el :root*/
+    margin: 0 auto; /* Centra el contenido */
+    padding: 0 20px;
+    width: 100%;
+}
+
+/*marco superior*/
+
+
+.marco-superior { /*estilo del marco superior*/
+    background-color: var(--colorFondo-header); /* llamada a las variable global definida en el :root*/
+    color: var(--textoHeader); /* llamada a las variable global definida en el :root*/
+    padding: 15px 0;
+    box-shadow: 0 2px 10px black; /* Sombra para dar profundidad al marco superior */
+    margin-bottom: 20px; /* separar la parte de abajo del encabezado y el siguiente elemento(dashdoard) */
+}
+
+.marco-superior .contenedor { /*flexbox - organiza los elementos del marco superior*/
+    display: flex; /*coloca automaticamente un elemento al lado del otro*/
+    justify-content: space-between; /*Empuja el logo al extremo izquierdo y el último elemento(botones/menú) al extremo derecho.*/
+    align-items: center; /*Centra los elementos verticalmente*/
+}
+
+.logo { /*flexbox-logo y titulo en el marco principal*/
+    display: flex;
+    align-items: center; /*centra el titulo verticalmentecon respecto a la altura de la imagen*/
+    gap: 10px; /* separacion entre imagen y texto */
+    font-weight: bold; /*grosor del texto en negrita */
+    font-size: 1.2rem; /*tamaño del texto del logo*/
+}

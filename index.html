@@ -3,9 +3,27 @@
     <head>
         <meta charset="UTF-8" /> <!-- Permite la codificación de caracteres -->
         <title>Banco bien chingon</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="estilos.css" /> <!-- Enlaza el archivo de estilos CSS -->
     </head>
+    
+    <!-- Cuerpo de la pagina-->
     <body>
-        
+        <header class="marco-superior"> <!-- Encabezado del sitio con clase para estilos -->
+            <div class="contenedor"> 
+                <div class="logo"> <!-- Contenedor para el logo del banco -->
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
+                    <span>Que tu padre es el negro jose?, que pena...</span> <!--titulo del logo, abierto al CSS-->
+                </div>
+            </div>
+        </header>
+        <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
+         <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
+         sin repitir el mismo codigo-->
+        <main class="contenedor">  <!--contenido principal-->
+            <div class="vista-actual">
+                <!-- Aquí debe ir el contenido del dashboard y las operaciones bancarias -->
+                <h1>Bienvenido al banco chingon</h1>
+            </div>
+        </main>
     </body>
 </html>
