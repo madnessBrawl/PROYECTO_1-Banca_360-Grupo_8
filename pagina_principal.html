@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+    <head>
+        <meta charset="UTF-8" /> <!-- Permite la codificacion de caracteres -->
+        <title>Banca360</title>
+        <link rel="stylesheet" href="estilos.css" /> <!-- Enlaza el archivo de estilos CSS -->
+    </head>
+    
+    <body>
+        <header class="marco-superior">
+            <div class="contenedor"> 
+                <div class="logo">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
+                    <span>Que tu padre es el negro jose?, que pena...</span> <!--titulo del logo, abierto al CSS-->
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#registro" class="nav-link">REGISTRO</a></li>
+                        <li><a href="#iniciosesion" class="nav-link">INICIO DE SESIÓN</a></li>
+                        <li><a href="#recuperar" class="nav-link">RECUPERAR CUENTA</a></li>
+                        <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="contenedor">
+            <div class="vista-actual">
+                <h1>¡Da el paso a nuestro Banco!</h1>
+                <p></p>
+            </div>
+
+            <div class="secciones-dinamicas">
+                
+                <!--Seccion de registro-->
+                <section id="registro" class="seccion-target">
+                    <h2>Crea tu cuenta</h2>
+                    <br>
+                    <form action="preguntas_seguridad.html" method="GET">
+                        <div>
+                            <label for="nombre">Nombre Completo:</label><br>
+                            <input type="text" id="nombre" name="usuario" placeholder="Juan Lopez" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="cedula">Cédula:</label><br>
+                            <input type="text" id="cedula" name="cedula" pattern="\d*" placeholder="12345678" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="correo">Email:</label><br>
+                            <input type="email" id="correo" name="email" placeholder="juanlopez@gmail.com" required>
+                        </div>
+                        <br>
+                        <!-- Validacion de 6 digitos numericos requerida -->
+                        <div>
+                            <label for="pass">Contraseña Numérica: (Min 6 dígitos):</label><br>
+                            <input type="password" id="contraseña" name="pass_reg" inputmode="numeric" pattern="[0-9]{6,}" minlength="6" placeholder="******" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="confirmar">Confirmar Contraseña:</label><br>
+                            <input type="password" id="confirmar" name="pass_confirm" inputmode="numeric" pattern="[0-9]{6,}" minlength="6" placeholder="******" required>
+                        </div>
+                        <br>
+                        <button type="submit">Siguiente: Configurar Seguridad</button>
+                    </form>
+                    <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
+
+                <!-- Inicion de sesion -->
+                <section id="iniciosesion" class="seccion-target">
+                    <h2>Inicio de Sesión</h2>
+                    
+                    <!-- Formulario con spinner de 2 segundos -->
+                    <form id="form-login" onsubmit="event.preventDefault(); manejarLogin();">
+                        <div>
+                            <label for="login_nombre">Usuario (Cédula):</label><br>
+                            <input type="text" id="login_nombre" name="usuario" required>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="login_pass">Contraseña:</label><br>
+                            <input type="password" id="login_pass" name="pass_login" inputmode="numeric" pattern="[0-9]{6,}" minlength="6" placeholder="******" required>
+                        </div>
+                        <br>
+                        <button type="submit" id="btn-entrar">Entrar al Sistema</button>
+
+                        <!-- Contenedor del Spinner: -->
+                        <div id="spinner-login">
+                            <div class="spinner-grafico"></div>
+                            <p class="texto-espera">Validando credenciales...</p>
+                        </div>
+                    </form>
+                    
+                    <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
+
+                <!-- Seccion de recuperacion de la cuenta (Solo estructura base) -->
+                <section id="recuperar" class="seccion-target">
+                    <h2>Recuperar Cuenta</h2>
+                    <p></p>
+                    <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Script externo para JavaScript-->
+        <script src="script.js"></script>
+    </body>
+</html>

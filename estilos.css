@@ -10,7 +10,7 @@
 /*Definir colores y tamaños base en el <html>*/
 /*variables globales (Custom Properties)*/
 :root {
-    --fondoColor: red;
+    --fondoColor: rgb(252, 252, 252);
     --textoColor: #333;   /* Color del texto principal */
     --colorFondo-header: #e8791f; /* Color de fondo del marco superior */
     --textoHeader: white; /* Color del texto en el marco superior */
@@ -51,11 +51,20 @@
     font-size: 1.2rem; /*tamaño del texto del logo*/
 }
 
+body{
+    background-color: var(--fondoColor); /* Si esto no está, el fondo no cambia */
+    color: var(--textoColor);
+    transition: background-color 0.3s, color 0.3s; /* Para que el cambio sea suave */
+
+}
+
 
 /* Estilos para el menu en el header */
 .marco-superior ul {
     list-style: none;
     display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .marco-superior li {
@@ -67,6 +76,8 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
+    display: inline-block; /* Permite que el alineamiento del padre funcione mejor */
+    vertical-align: middle;
 }
 
 /* ocultar secciones y mostrarlas solo al hacer clic  */
@@ -89,4 +100,149 @@ main:has(section:target) .vista-actual {
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: bold;
+}
+
+
+
+/*Contenedor principal de la seccion */
+.seccion-target {
+    display: none;            
+    padding: 60px;            
+    background-color: #f0f0f0; 
+    border-radius: 15px;      
+    max-width: 600px;        
+    margin: 20px auto;       
+}
+
+/* El formulario*/
+form {
+    max-width: 400px;         
+    margin: 0 auto;   
+    text-align: left;        
+    background: white;        
+    padding: 30px;            
+    border-radius: 8px;       
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+}
+
+/* Elementos de entrrada(Inputs y Selects) */
+input, select {
+    width: 100%;             
+    padding: 10px;            
+    margin-top: 5px;          
+    border: 1px solid #ccc;   
+    border-radius: 4px;     
+}
+
+/* Boton */
+button {
+    background-color: var(--colorFondo-header); 
+    color: white;            
+    padding: 10px 20px;       
+    border: none;             
+    border-radius: 4px;       
+    cursor: pointer;          
+    font-weight: bold;       
+    width: 100%;              
+    margin-top: 10px;         
+}
+
+
+
+/* Contenedor del spinner */
+#spinner-login {
+    display: none;          
+    margin-top: 20px;         
+}
+
+/* Gradfico spinner*/
+.spinner {
+    width: 35px;              /* Ancho del circulo */
+    height: 35px;             /* Alto del circulo */
+    border: 4px solid #f3f3f3; 
+    border-top: 4px solid var(--colorFondo-header); 
+    border-radius: 50%;       
+    margin: 0 auto;           
+    animation: spin 1s linear infinite; /* Aplica la animacion spin dura 1 segundo*/
+}
+
+/* definicion de la rotacion*/
+@keyframes spin {
+    0% { transform: rotate(0deg); }   /* inicio sin rotacion*/
+    100% { transform: rotate(360deg); } /* final vuelta completa 360 grados */
+}
+
+
+/* --- ESTILO DEL MENSAJE DE ÉXITO --- */
+.seccion-final {
+    display: none;      
+    text-align: center;
+    padding: 40px;
+    background-color: var(--fondoColor); 
+    border-radius: 15px;
+    border: 2px solid #28a745; 
+    margin-top: 20px;
+}
+
+.titulo-exito {
+    color: #28a745;     
+    margin-bottom: 15px;
+}
+
+/* Ajuste para Modo Oscuro */
+body.dark-mode .seccion-final {
+    background-color: #1e1e1e; 
+    border-color: #2ecc71;     
+}
+
+body.dark-mode .seccion-final p {
+    color: white;
+}
+
+/* Estilo base boton de modo oscuro*/
+.btn-modo {
+    background: transparent;
+    border: 1px solid var(--textoHeader);
+    color: var(--textoHeader);
+    padding: 5px 15px;      
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 0;              
+    display: flex;          
+    align-items: center;
+    justify-content: center;
+    height: fit-content;    
+}
+
+.btn-modo:hover {
+    background: white;
+    color: var(--colorFondo-header);
+}
+
+/* Variables que cambian cuando el .body tiene la clase modo oscuro */
+body.dark-mode {
+    color-scheme: dark;
+    --fondoColor: #121212;
+    --textoColor: #ffffff;
+}
+
+/* Cambio de color */
+body.dark-mode .seccion-target {
+    background-color: #1e1e1e;
+}
+
+/* Cambio de color (cuadro grisiento del formulario) */
+body.dark-mode form {
+    background-color: #2a2a2a;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+/* Ajuste de inputs*/
+body.dark-mode input {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
 }

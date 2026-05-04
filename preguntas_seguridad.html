@@ -1,60 +1,93 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas de Seguridad</title>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <title>Seguridad - Banca360</title>
+    <!-- Se mantiene el enlace a tus estilos para la tipografía y el marco -->
+    <link rel="stylesheet" href="estilos.css" />
 </head>
+
 <body>
-    <header>
-        <h1>Preguntas de Seguridad</h1>
+    <!-- MARCO SUPERIOR (Consistente con index.html) -->
+    <header class="marco-superior">
+        <div class="contenedor"> 
+            <div class="logo">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
+                    <span>Que tu padre es el negro jose?, que pena...</span> <!--titulo del logo, abierto al CSS-->
+            </div>
+            <nav>
+                <ul>
+                    <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <section>
-        <!--El formulario envia los datos y los redirige a iniciodesesion-->
-        <form action="index.html#iniciosesion" method="POST">
-            <!--Pregunta 1-->
-            <div>
-                <label>Pregunta 1:</label><br>
-                <select name="pregunta1" required>
-                    <option value="">Seleccione una pregunta...</option>
-                    <option value="pelicula">¿Nombre de su pelicula favorita?</option>
-                    <option value="mascota">¿Nombre de su primera mascota?</option>
-                    <option value="padres">¿Nombre de su padre o madre?</option>
-                </select><br>
-                <input type="text" name="respuesta1" placeholder="Respuesta" required>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="contenedor">
+        <div class="vista-actual">
+            <h1>Seguridad de tu Cuenta</h1>
+            <p id="instruccion">Para completar el registro, selecciona y responde 3 preguntas de seguridad.</p>
+        </div>
 
+        <div class="secciones-dinamicas">
+            <!-- Formulario de configuración sin estilos en línea para usar tus clases de CSS -->
+            <form id="form-preguntas" onsubmit="event.preventDefault(); finalizarProceso();">
+                
+                <!-- Pregunta 1 -->
+                <div class="grupo-entrada">
+                    <label>Pregunta 1:</label><br>
+                    <select required>
+                        <option value="">Selecciona una opción...</option>
+                        <option value="1">¿Nombre de tu primera mascota?</option>
+                        <option value="2">¿Ciudad de nacimiento?</option>
+                        <option value="3">¿Nombre de tu escuela primaria?</option>
+                    </select><br>
+                    <input type="text" placeholder="Tu respuesta" required>
+                </div>
+                <br>
+
+                <!-- Pregunta 2 -->
+                <div class="grupo-entrada">
+                    <label>Pregunta 2:</label><br>
+                    <select required>
+                        <option value="">Selecciona una opción...</option>
+                        <option value="4">¿Marca de tu primer telefono?</option>
+                        <option value="5">¿Nombre de tu madre o padre?</option>
+                        <option value="6">¿Color favorito?</option>
+                    </select><br>
+                    <input type="text" placeholder="Tu respuesta" required>
+                </div>
+                <br>
+
+                <!-- Pregunta 3 -->
+                <div class="grupo-entrada">
+                    <label>Pregunta 3:</label><br>
+                    <select required>
+                        <option value="">Selecciona una opción...</option>
+                        <option value="7">¿Comida favorita?</option>
+                        <option value="8">¿Nombre de tu libro favorito?</option>
+                        <option value="9">¿Película que más te gusta?</option>
+                    </select><br>
+                    <input type="text" placeholder="Tu respuesta" required>
+                </div>
+                <br>
+
+                <button type="submit">Finalizar Registro</button>
+            </form>
+
+            <!-- Bloque de opciones finales (Aparece tras el envio) -->
+            <div id="mensaje-exito" class="seccion-final">
+                <h2>¡Registro Completado!</h2>
+                <p>Tus preguntas de seguridad han sido guardadas. ¿Que deseas hacer ahora?</p>
+                <br>
+                <div class="opciones-botones">
+                    <button onclick="window.location.href='pagina_principal.html#iniciosesion'">Ir al Inicio de Sesión</button>
+                    <button onclick="window.location.href='pagina_principal.html'">Ir a la Página Principal</button>
+                </div>
             </div>
-            <br>
-            <!--Pregunta 2-->
-            <div>
-                <label>Pregunta 2:</label><br>
-                <select name="pregunta1" required>
-                    <option value="">Seleccione una pregunta...</option>
-                    <option value="libro">¿Nombre de su libro favorito?</option>
-                    <option value="carro">¿Marca de su primer carro?</option>
-                    <option value="color">¿Color favorito?</option>
-                </select><br>
-                <input type="text" name="respuesta2" placeholder="Respuesta" required>
-
-            </div>
-            <br>
-
-            <!--Pregunta 3-->
-            <div>
-                <label>Pregunta 3:</label><br>
-                <select name="pregunta1" required>
-                    <option value="">Seleccione una pregunta...</option>
-                    <option value="escuela">¿Primera escuela donde estudiaste?</option>
-                    <option value="ciudad">¿Ciudad donde naciste?</option>
-                    <option value="postre">¿Postre favorito?</option>
-                </select><br>
-                <input type="text" name="respuesta1" placeholder="Respuesta" required>
-            </div>
-            <br>
-            <button type="submit">Finalizar Registro</button>
-
-        </form>
-    </section>
+        </div>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
