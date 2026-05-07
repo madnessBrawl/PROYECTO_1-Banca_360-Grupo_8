@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Banca360 - Mi Dashboard</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header class="marco-superior">
+        <div class="contenedor">
+            <div class="logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo" width="50">
+                <span>Banca360</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio" class="nav-link">INICIO</a></li>
+                    <li><a href="#operaciones" class="nav-link">OPERACIONES</a></li>
+                    <li><a href="#historial" class="nav-link">HISTORIAL</a></li>
+                    <li><a href="#perfil" class="nav-link">PERFIL</a></li>
+                    <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
+                    <li><a href="sesion-finalizada.html" class="nav-link" style="color: #ffb3b3;">SALIR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <section id="inicio">
+            <div class="tarjeta-saldo">
+                <p>Saldo Disponible</p>
+                <div class="saldo-container">
+                    <span id="txt-saldo">$ 0.00</span>
+                    <button onclick="toggleSaldo()" class="btn-ojo">👁️</button>
+                </div>
+            </div>
+            <h3>Últimos Movimientos</h3>
+            <table class="tabla-bancaria">
+                <tbody id="lista-resumen"></tbody>
+            </table>
+        </section>
+
+        <section id="operaciones" class="seccion-target">
+            <h2>Operaciones</h2>
+            <div class="grid-operaciones">
+                <button onclick="mostrarForm('transferencia')">Transferencia</button>
+                <button onclick="mostrarForm('pago-movil')">Pago Móvil</button>
+                <button onclick="mostrarForm('deposito')">Depósito</button>
+            </div>
+            <div id="formularios-operaciones">
+                <form id="form-transferencia" style="display:none;" onsubmit="ejecutarOperacion(event, 'Salida', 'Transferencia')">
+                    <h3>Transferencia</h3>
+                    <input type="text" placeholder="Cuenta Destino (20 dígitos)" required pattern="[0-9]{20}">
+                    <input type="number" id="monto-trans" placeholder="Monto $" step="0.01" required>
+                    <button type="submit">Enviar</button>
+                </form>
+                <form id="form-pago-movil" style="display:none;" onsubmit="ejecutarOperacion(event, 'Salida', 'Pago Móvil')">
+                    <h3>Pago Móvil</h3>
+                    <input type="tel" placeholder="Número de Teléfono" required pattern="[0-9]{11}">
+                    <input type="number" id="monto-pm" placeholder="Monto $" step="0.01" required>
+                    <button type="submit">Pagar</button>
+                </form>
+                <form id="form-deposito" style="display:none;" onsubmit="ejecutarOperacion(event, 'Entrada', 'Depósito')">
+                    <h3>Depósito</h3>
+                    <input type="number" id="monto-dep" placeholder="Monto a ingresar $" step="0.01" required>
+                    <button type="submit">Confirmar</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="historial" class="seccion-target">
+            <h2>Historial Completo</h2>
+            <div class="filtros" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button onclick="filtrarHistorial('todos')">Todos</button>
+                <button onclick="filtrarHistorial('Entrada')">Entradas</button>
+                <button onclick="filtrarHistorial('Salida')">Salidas</button>
+            </div>
+            <table class="tabla-bancaria">
+                <thead><tr><th>Fecha</th><th>Detalle</th><th>Tipo</th><th>Monto</th></tr></thead>
+                <tbody id="lista-movimientos-completo"></tbody>
+            </table>
+        </section>
+
+        <section id="perfil" class="seccion-target">
+            <h2>Mi Perfil</h2>
+            <form onsubmit="event.preventDefault(); alert('Contraseña actualizada');">
+                <label>Nombre:</label>
+                <input type="text" value="Usuario Banca360" readonly>
+                <label>Cambiar Contraseña (6 dígitos):</label>
+                <input type="password" pattern="[0-9]{6}" minlength="6">
+                <button type="submit">Guardar</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

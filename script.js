@@ -1,74 +1,125 @@
-// usamos localStorage para que el navegador "recuerde" el registro al cambiar de página
+
 let registroValido = localStorage.getItem('registroCompleto') === 'true';
 
-// logica de registro
 function manejarRegistro() {
-    // Aquí puedes agregar validaciones extra si lo deseas
-    console.log("Datos básicos recibidos. Redirigiendo a seguridad...");
     window.location.href = "preguntas_seguridad.html";
 }
 
-// preguntas de seguridad
 function finalizarProceso() {
-    // Marcamos el registro como completado
     localStorage.setItem('registroCompleto', 'true');
     registroValido = true;
-
-    // Cambiamos la vista
     document.getElementById('form-preguntas').style.display = 'none';
     document.getElementById('instruccion').style.display = 'none';
     document.getElementById('mensaje-exito').style.display = 'block';
 }
 
-// Inicio de sesion 
 function manejarLogin() {
     const boton = document.getElementById('btn-entrar');
     const spinner = document.getElementById('spinner-login');
-
-    // Bloquear boton y mostrar spinner de 2 segundos
     boton.disabled = true;
     spinner.style.display = 'block';
 
     setTimeout(() => {
-        alert("Acceso concedido a Banca360");
-        window.location.href = "dashboard.html"; // O la pagina principal post-login
-    }, 2000); // 2 segundos exactos
+        window.location.href = "dashboard.html"; 
+    }, 2000); 
 }
 
-
-// Esta función impide entrar al login si no se han respondido las preguntas (no aplicada aun)
-window.addEventListener('hashchange', function() {
-    if (window.location.hash === "#iniciosesion" && !registroValido) {
-        alert("Seguridad: Debe completar el registro y las preguntas primero.");
-        window.location.hash = "#registro";
-    }
-});
-
-// Verificacion inicial al cargar la página
-window.onload = function() {
-    if (window.location.hash === "#iniciosesion" && !registroValido) {
-        window.location.hash = "#registro";
-    }
-};
-
-// Modo oscuro
 const btnModo = document.getElementById('boton-claro-oscuro');
-const body = document.body;
-if (localStorage.getItem('tema') === 'dark') {
-    body.classList.add('dark-mode');
-    btnModo.textContent = 'MODO CLARO';
+if (btnModo) {
+    if (localStorage.getItem('tema') === 'dark') {
+        document.body.classList.add('dark-mode');
+        btnModo.textContent = 'MODO CLARO';
+    }
+
+    btnModo.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const esOscuro = document.body.classList.contains('dark-mode');
+        localStorage.setItem('tema', esOscuro ? 'dark' : 'light');
+        btnModo.textContent = esOscuro ? 'MODO CLARO' : 'MODO OSCURO';
+    });
 }
 
-btnModo.addEventListener('click', () => {
-    // 1. Cambiamos la clase del body
-    document.body.classList.toggle('dark-mode');
 
-    // 2. Verificamos si la clase se aplico correctamente para cambiar el texto
-    if (document.body.classList.contains('dark-mode')) {
-        btnModo.textContent = 'MODO CLARO';
-        console.log("Modo oscuro activado"); 
-    } else {
-        btnModo.textContent = 'MODO OSCURO';
-        console.log("Modo claro activado");
+let saldoActual = 5000.00;
+let saldoOculto = false;
+let movimientos = [
+    { fecha: '06/05/2026', detalle: 'Depósito Nómina', tipo: 'Entrada', monto: 4500.00 },
+    { fecha: '05/05/2026', detalle: 'Pago Supermercado', tipo: 'Salida', monto: 120.50 }
+];
+
+function toggleSaldo() {
+    saldoOculto = !saldoOculto;
+    actualizarVista();
+}
+
+function mostrarForm(tipo) {
+    const forms = ['transferencia', 'pago-movil', 'deposito'];
+    forms.forEach(f => {
+        const el = document.getElementById(`form-${f}`);
+        if(el) el.style.display = 'none';
+    });
+    const target = document.getElementById(`form-${tipo}`);
+    if(target) target.style.display = 'block';
+}
+
+function ejecutarOperacion(event, tipoOp, detalleOp) {
+    event.preventDefault();
+    let inputID = "";
+    if (detalleOp === 'Transferencia') inputID = 'monto-trans';
+    if (detalleOp === 'Pago Móvil') inputID = 'monto-pm';
+    if (detalleOp === 'Depósito') inputID = 'monto-dep';
+
+    const inputMonto = document.getElementById(inputID);
+    const monto = parseFloat(inputMonto.value);
+
+    if (tipoOp === 'Salida' && monto > saldoActual) {
+        alert("Saldo insuficiente."); return;
     }
-});
+
+    if (tipoOp === 'Entrada') saldoActual += monto;
+    else saldoActual -= monto;
+
+    movimientos.unshift({
+        fecha: new Date().toLocaleDateString(),
+        detalle: detalleOp,
+        tipo: tipoOp,
+        monto: monto
+    });
+
+    inputMonto.value = "";
+    alert("Operación completada con éxito");
+    actualizarVista();
+}
+
+function actualizarVista() {
+    const txtSaldo = document.getElementById('txt-saldo');
+    if (txtSaldo) {
+        txtSaldo.textContent = saldoOculto ? "********" : `$ ${saldoActual.toFixed(2)}`;
+    }
+    renderizarTabla(movimientos, 'lista-movimientos-completo');
+    renderizarTabla(movimientos.slice(0, 3), 'lista-resumen');
+}
+
+function renderizarTabla(datos, idContenedor) {
+    const contenedor = document.getElementById(idContenedor);
+    if (!contenedor) return;
+    contenedor.innerHTML = "";
+    datos.forEach(mov => {
+        const fila = `<tr>
+            ${idContenedor.includes('completo') ? `<td>${mov.fecha}</td>` : ''}
+            <td>${mov.detalle}</td>
+            ${idContenedor.includes('completo') ? `<td>${mov.tipo}</td>` : ''}
+            <td style="color: ${mov.tipo === 'Entrada' ? '#2ecc71' : '#e74c3c'}; font-weight:bold;">
+                ${mov.tipo === 'Entrada' ? '+' : '-'} $${mov.monto.toFixed(2)}
+            </td>
+        </tr>`;
+        contenedor.innerHTML += fila;
+    });
+}
+
+function filtrarHistorial(filtro) {
+    if (filtro === 'todos') renderizarTabla(movimientos, 'lista-movimientos-completo');
+    else renderizarTabla(movimientos.filter(m => m.tipo === filtro), 'lista-movimientos-completo');
+}
+
+window.addEventListener('load', actualizarVista);
