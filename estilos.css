@@ -199,6 +199,8 @@ body.dark-mode .seccion-final p {
     color: white;
 }
 
+/*------------------------Modo Oscuro/claro------------------------*/
+
 /* Estilo base boton de modo oscuro*/
 .btn-modo {
     background: transparent;
@@ -245,4 +247,27 @@ body.dark-mode input {
     background-color: #333;
     color: white;
     border: 1px solid #444;
+}
+
+
+/*------------------------------------- DASHBOARD -------------------------------------*/
+
+/* Estilos para el reloj de fecha y hora en el dashboard */
+.reloj {
+    display: flex !important; /* Fuerza a que fecha y hora estén en la misma línea */
+    flex-direction: row !important;
+    gap: 5px;
+    font-weight: 500;
+}
+
+.reloj span {
+    display: block; /* Pone la hora debajo de la fecha */
+}
+
+.titulo-bienvenida {
+    color: var(--textoColor);
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    height: 100px;           /* Altura opcional para notar el centrado vertical */
 }

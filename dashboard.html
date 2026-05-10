@@ -7,29 +7,41 @@
     </head>
     <!-- Cuerpo de la pagina-->
     <body>
-        <header class="marco-superior"> <!-- Encabezado del sitio con clase para estilos -->
+        <header class="marco-superior"> <!-- Marco superior encima del contenido -->
             <div class="contenedor">
+                
                 <div class="logo"> <!-- Contenedor para el logo del banco -->
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
-                    <span>Que tu padre es el negro jose?, que pena...</span> <!--titulo del logo, abierto al CSS-->
+                    <h1>Banco El Emporio</h1> <!--titulo del logo, abierto al CSS-->
                 </div>
+
+                <div id="contenedor-horaFecha" class="reloj">
+                    <span id="fecha"></span>
+                    <span class="separador"> - </span> <!-- separador para la hora -->
+                    <span id="hora"></span> 
+                </div>
+
                 <nav>
                     <ul>
                         <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
+                        <a href="pagina_principal.html" class="btn-modo">SALIR</a>
                     </ul>
                 </nav>
+                
             </div>
         </header>
+
         <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
          <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
          sin repitir el mismo codigo-->
         <main class="contenedor">  <!--contenido principal-->
             <div class="vista-actual">
                 <!-- Aquí debe ir el contenido del dashboard y las operaciones bancarias -->
-                <h1>Bienvenido al banco chingon</h1>
+                 <div class="titulo-bienvenida">
+                    <h1>¡Bienvenido "Usuario"!</h1> <!--titulo de bievenida al usuario-->
+                </div>
             </div>
         </main>
-
         <!-- Script externo para JavaScript-->
         <script src="script.js"></script>
     </body>

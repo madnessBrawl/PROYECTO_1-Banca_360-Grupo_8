@@ -1,3 +1,5 @@
+//getElementById -> obtener los elementos de HTML para manipularlos
+
 // usamos localStorage para que el navegador "recuerde" el registro al cambiar de página
 let registroValido = localStorage.getItem('registroCompleto') === 'true';
 
@@ -22,7 +24,7 @@ function finalizarProceso() {
 
 // Inicio de sesion 
 function manejarLogin() {
-    const boton = document.getElementById('btn-entrar');
+    const boton = document.getElementById('btn-entrar'); 
     const spinner = document.getElementById('spinner-login');
 
     // Bloquear boton y mostrar spinner de 2 segundos
@@ -72,3 +74,34 @@ btnModo.addEventListener('click', () => {
         console.log("Modo claro activado");
     }
 });
+
+
+// Funcion de hora y fecha en tiempo real y actualizada cada segundo
+function actualizarFechaHora() {
+    const tiempoActual = new Date();
+    // formateamos la fecha actual para mostrarla en el dashboard
+    const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
+    const fechaActual = tiempoActual.toLocaleDateString('es-ES', opcionesFecha);  
+    
+    // hora con AM/PM o p.m/a.m
+    const opcionesHora = {  // Formato de hora con AM/PM o p.m/a.m
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true // <-- activa el AM/PM
+    };
+
+     // formateamos la hora para mostrarla en el dashboard
+    const horaActual = tiempoActual.toLocaleTimeString('Es-ES', opcionesHora);
+
+    // fecha y hora en el html
+    document.getElementById('fecha').textContent = fechaActual;
+    document.getElementById('hora').textContent = horaActual;
+
+}
+
+// llamar a la funcion para mostrar la fecha y hora al cargar el dashboard
+actualizarFechaHora();
+
+// Actualizar la fecha y hora cada segundo(1000 milisegundos)
+setInterval(actualizarFechaHora, 1000);
