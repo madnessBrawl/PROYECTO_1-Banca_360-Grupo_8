@@ -107,7 +107,7 @@ actualizarFechaHora();
 setInterval(actualizarFechaHora, 1000);
 
 /**
- * SISTEMA DE GESTION DE USUARIOS - BANCA360
+ * SISTEMA DE GESTION DE USUARIOS
  * Descripcion: Manejo de autenticacion, registro y recuperacion mediante listas enlazadas.
  */
 
@@ -372,8 +372,7 @@ function ejecutarDesbloqueo() {
         alert("Los datos no coinciden.");
     }
 }
-// --- MODO OSCURO ---
-const btnModoExtra = document.getElementById('boton-claro-oscuro');
+// --- MODO OSCURO --- //
 if (localStorage.getItem('tema') === 'dark') {
     document.body.classList.add('dark-mode');
     if(btnModoExtra) btnModoExtra.textContent = 'MODO CLARO';
