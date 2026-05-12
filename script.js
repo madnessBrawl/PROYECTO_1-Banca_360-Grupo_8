@@ -1,118 +1,12 @@
-//getElementById -> obtener los elementos de HTML para manipularlos
+/**
+ * SISTEMA DE GESTION DE USUARIOS --- BANCA360*/
 
-// usamos localStorage para que el navegador "recuerde" el registro al cambiar de página
+// getElementById -> obtener los elementos de HTML para manipularlos
+
+// usamos localStorage para que el navegador "recuerde" el registro al cambiar de pagina
 let registroValido = localStorage.getItem('registroCompleto') === 'true';
 
-// logica de registro
-function manejarRegistro() {
-    // Aquí puedes agregar validaciones extra si lo deseas
-    console.log("Datos básicos recibidos. Redirigiendo a seguridad...");
-    window.location.href = "preguntas_seguridad.html";
-}
-
-// preguntas de seguridad
-function finalizarProceso() {
-    // Marcamos el registro como completado
-    localStorage.setItem('registroCompleto', 'true');
-    registroValido = true;
-
-    // Cambiamos la vista
-    document.getElementById('form-preguntas').style.display = 'none';
-    document.getElementById('instruccion').style.display = 'none';
-    document.getElementById('mensaje-exito').style.display = 'block';
-}
-
-// Inicio de sesion 
-function manejarLogin() {
-    const boton = document.getElementById('btn-entrar'); 
-    const spinner = document.getElementById('spinner-login');
-
-    // Bloquear boton y mostrar spinner de 2 segundos
-    boton.disabled = true;
-    spinner.style.display = 'block';
-
-    setTimeout(() => {
-        alert("Acceso concedido a Banca360");
-        window.location.href = "dashboard.html"; // O la pagina principal post-login
-    }, 2000); // 2 segundos exactos
-}
-
-
-// Esta función impide entrar al login si no se han respondido las preguntas 
-window.addEventListener('hashchange', function() {
-    if (window.location.hash === "#iniciosesion" && !registroValido) {
-        alert("Seguridad: Debe completar el registro y las preguntas primero.");
-        window.location.hash = "#registro";
-    }
-});
-
-// Verificacion inicial al cargar la pagina
-window.onload = function() {
-    if (window.location.hash === "#iniciosesion" && !registroValido) {
-        window.location.hash = "#registro";
-    }
-};
-
-// Modo oscuro
-const btnModo = document.getElementById('boton-claro-oscuro');
-const body = document.body;
-if (localStorage.getItem('tema') === 'dark') {
-    body.classList.add('dark-mode');
-    btnModo.textContent = 'MODO CLARO';
-}
-
-btnModo.addEventListener('click', () => {
-    // 1. Cambiamos la clase del body
-    document.body.classList.toggle('dark-mode');
-
-    // 2. Verificamos si la clase se aplico correctamente para cambiar el texto
-    if (document.body.classList.contains('dark-mode')) {
-        btnModo.textContent = 'MODO CLARO';
-        console.log("Modo oscuro activado"); 
-    } else {
-        btnModo.textContent = 'MODO OSCURO';
-        console.log("Modo claro activado");
-    }
-});
-
-
-// Funcion de hora y fecha en tiempo real y actualizada cada segundo
-function actualizarFechaHora() {
-    const tiempoActual = new Date();
-    // formateamos la fecha actual para mostrarla en el dashboard
-    const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
-    const fechaActual = tiempoActual.toLocaleDateString('es-ES', opcionesFecha);  
-    
-    // hora con AM/PM o p.m/a.m
-    const opcionesHora = {  // Formato de hora con AM/PM o p.m/a.m
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        hour12: true // <-- activa el AM/PM
-    };
-
-     // formateamos la hora para mostrarla en el dashboard
-    const horaActual = tiempoActual.toLocaleTimeString('Es-ES', opcionesHora);
-
-    // fecha y hora en el html
-    document.getElementById('fecha').textContent = fechaActual;
-    document.getElementById('hora').textContent = horaActual;
-
-}
-
-// llamar a la funcion para mostrar la fecha y hora al cargar el dashboard
-actualizarFechaHora();
-
-// Actualizar la fecha y hora cada segundo(1000 milisegundos)
-setInterval(actualizarFechaHora, 1000);
-
-/**
- * SISTEMA DE GESTION DE USUARIOS
- * Descripcion: Manejo de autenticacion, registro y recuperacion mediante listas enlazadas.
- */
-
-// --- CLASE USUARIO ---
-// Representa el nodo de la lista enlazada con la informacion del cliente.
+// --- CLASE USUARIO (NODO DE LA LISTA) ---
 class Usuario {
     constructor(nombre, cedula, email, pass, respuestas, idsPreguntas) {
         this.nombre = nombre;
@@ -120,25 +14,22 @@ class Usuario {
         this.email = email;
         this.pass = pass;
         this.preguntas = respuestas;     // Respuestas de seguridad
-        this.idsPreguntas = idsPreguntas; // Referencia al catalogo de preguntas
-        this.siguiente = null;            // Puntero al proximo nodo
-        this.intentos = 0;                // Contador para bloqueo de cuenta
-        this.bloqueada = false;           // Estado de acceso
+        this.idsPreguntas = idsPreguntas; // IDs de las preguntas
+        this.siguiente = null;           // Puntero al proximo nodo
+        this.intentos = 0;               // Contador de errores
+        this.bloqueada = false;          // Estado de cuenta
     }
 }
 
 // --- CLASE SISTEMA (LISTA ENLAZADA) ---
-// Gestiona la estructura de datos y la persistencia en LocalStorage.
 class SistemaUsuarios {
     constructor() {
         this.cabeza = null;
         this.cargarDesdeArchivo(); 
     }
 
-    // Inserta un nuevo usuario si la cedula no existe previamente.
     registrar(nuevoUsuario) {
         if (this.buscarPorCedula(nuevoUsuario.cedula)) return false;
-
         if (!this.cabeza) {
             this.cabeza = nuevoUsuario;
         } else {
@@ -150,18 +41,18 @@ class SistemaUsuarios {
         return true;
     }
 
-    // Busca un nodo recorriendo la lista por numero de cedula.
     buscarPorCedula(cedula) {
+        if (!cedula) return null;
         let actual = this.cabeza;
         while (actual) {
-            if (actual.cedula.trim() === cedula.trim()) return actual;
+            if (String(actual.cedula).trim() === String(cedula).trim()) return actual;
             actual = actual.siguiente;
         }
         return null;
     }
 
-    // Busca un nodo recorriendo la lista por correo electronico.
     buscarPorEmail(email) {
+        if (!email) return null;
         let actual = this.cabeza;
         while (actual) {
             if (actual.email.toLowerCase() === email.toLowerCase()) return actual;
@@ -170,7 +61,6 @@ class SistemaUsuarios {
         return null;
     }
 
-    // Serializa la lista enlazada a un array para guardarlo en LocalStorage.
     guardarEnArchivo() {
         let listaArray = [];
         let actual = this.cabeza;
@@ -190,11 +80,11 @@ class SistemaUsuarios {
         localStorage.setItem('usuarios_banco', JSON.stringify(listaArray));
     }
 
-    // Recupera los datos de LocalStorage y reconstruye la lista enlazada.
     cargarDesdeArchivo() {
         const datosRaw = localStorage.getItem('usuarios_banco');
         if (datosRaw) {
             const datos = JSON.parse(datosRaw);
+            this.cabeza = null; 
             datos.forEach(d => {
                 const nuevoU = new Usuario(d.nombre, d.cedula, d.email, d.pass, d.preguntas, d.idsPreguntas);
                 nuevoU.intentos = d.intentos || 0;
@@ -204,7 +94,6 @@ class SistemaUsuarios {
         }
     }
 
-    // Metodo auxiliar para reconstruir la lista sin disparar guardados adicionales.
     _insertarAlFinal(nuevo) {
         if (!this.cabeza) this.cabeza = nuevo;
         else {
@@ -215,10 +104,9 @@ class SistemaUsuarios {
     }
 }
 
-// Instancia global de la base de datos simulada.
+// Instancia global
 const db = new SistemaUsuarios();
 
-// Diccionario que mapea IDs con las preguntas de seguridad visibles al usuario.
 const catalogoPreguntas = {
     "1": "¿Nombre de tu primera mascota?",
     "2": "¿Ciudad de nacimiento?",
@@ -231,24 +119,25 @@ const catalogoPreguntas = {
     "9": "¿Película que más te gusta?"
 };
 
-// Variables para mantener el contexto durante procesos de varios pasos.
 let usuarioTemporal = null;
 let indicePreguntaAzar = 0;
 
-// --- FUNCIONES DE INTERFAZ ---
+// logica de registro inicial
+function manejarRegistro() {
+    console.log("Datos basicos recibidos. Redirigiendo a seguridad...");
+    window.location.href = "preguntas_seguridad.html";
+}
 
-// Finaliza el registro capturando datos de la URL y las preguntas de seguridad.
+// preguntas de seguridad y guardado en lista enlazada
 function finalizarProceso() {
+    // Capturamos datos de la URL (vienen del formulario anterior)
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get('usuario');
     const cedula = urlParams.get('cedula');
     const email = urlParams.get('email');
     const pass = urlParams.get('pass_reg');
 
-    const formPreguntas = document.getElementById('form-preguntas');
-    const mensajeExito = document.getElementById('mensaje-exito');
-    const tituloInstruccion = document.getElementById('instruccion');
-
+    // Capturamos las preguntas seleccionadas
     const ids = [
         document.getElementById('p1-opcion').value,
         document.getElementById('p2-opcion').value,
@@ -261,127 +150,200 @@ function finalizarProceso() {
     ];
 
     if (nombre && cedula) {
-        try {
-            const nuevoUsuario = new Usuario(nombre, cedula, email, pass, respuestas, ids);
-            
-            if (db.registrar(nuevoUsuario)) {
-                if(formPreguntas) formPreguntas.style.display = 'none';
-                if(mensajeExito) mensajeExito.style.display = 'block';
-                if(tituloInstruccion) tituloInstruccion.innerText = "¡Registro Exitoso!";
-            } else {
-                alert("ERROR: La cédula ya está registrada.");
-            }
-        } catch (error) {
-            console.error("Error en el registro:", error);
+        const nuevoUsuario = new Usuario(nombre, cedula, email, pass, respuestas, ids);
+        
+        if (db.registrar(nuevoUsuario)) {
+            // Marcamos el registro como completado para el navegador
+            localStorage.setItem('registroCompleto', 'true');
+            registroValido = true;
+
+            // Cambiamos la vista
+            document.getElementById('form-preguntas').style.display = 'none';
+            document.getElementById('instruccion').innerText = "¡Registro Completado!";
+            document.getElementById('mensaje-exito').style.display = 'block';
+        } else {
+            alert("Error: El usuario ya existe en el sistema.");
         }
     } else {
-        alert("Faltan datos del registro anterior.");
+        alert("Faltan datos del registro.");
     }
 }
 
-// Valida credenciales e implementa logica de bloqueo tras 3 intentos fallidos.
+// Inicio de sesion con validacion real y lista enlazada
 function manejarLogin() {
-    const cedula = document.getElementById('login_nombre').value.trim();
-    const pass = document.getElementById('login_pass').value.trim();
-    const usuario = db.buscarPorCedula(cedula);
+    const cedulaInput = document.getElementById('login_nombre').value.trim();
+    const passInput = document.getElementById('login_pass').value.trim();
+    const boton = document.getElementById('btn-entrar'); 
+    const spinner = document.getElementById('spinner-login');
 
-    if (!usuario) return alert("Usuario no encontrado.");
-    if (usuario.bloqueada) return alert("CUENTA BLOQUEADA. Use 'Recuperar Cuenta'.");
+    const usuario = db.buscarPorCedula(cedulaInput);
 
-    if (usuario.pass === pass) {
-        usuario.intentos = 0;
-        db.guardarEnArchivo();
-        alert("Bienvenido " + usuario.nombre);
+    if (!usuario) {
+        alert("Usuario no registrado");
+        return;
+    }
+
+    if (usuario.bloqueada) {
+        alert("Cuenta bloqueada. Use la opcion de recuperar.");
+        return;
+    }
+
+    if (usuario.pass === passInput) {
+        // Bloquear boton y mostrar spinner de 2 segundos
+        if (boton) boton.disabled = true;
+        if (spinner) spinner.style.display = 'block';
+
+        setTimeout(() => {
+            usuario.intentos = 0;
+            db.guardarEnArchivo();
+            localStorage.setItem('usuario_actual', usuario.cedula);
+            alert("Acceso concedido a Banca360");
+            window.location.href = "menu_inicio_sesion.html";
+        }, 2000); 
     } else {
         usuario.intentos++;
         if (usuario.intentos >= 3) {
             usuario.bloqueada = true;
-            alert("CUENTA BLOQUEADA por seguridad.");
+            alert("Has superado los intentos. Cuenta bloqueada.");
         } else {
-            alert("Clave incorrecta. Intentos: " + usuario.intentos + "/3");
+            alert(`Contraseña incorrecta. Intento ${usuario.intentos} de 3.`);
         }
         db.guardarEnArchivo();
     }
 }
 
-// Busca al usuario y selecciona una pregunta al azar para validar identidad.
-function prepararCambioClave() {
-    const cedula = document.getElementById('cambiar-cedula-input').value.trim();
-    usuarioTemporal = db.buscarPorCedula(cedula);
+// Bloqueo de hash si no hay registro
+window.addEventListener('hashchange', function() {
+    if (window.location.hash === "#iniciosesion" && !registroValido) {
+        alert("Seguridad: Debe completar el registro y las preguntas primero.");
+        window.location.hash = "#registro";
+    }
+});
 
-    if (usuarioTemporal) {
-        if (usuarioTemporal.bloqueada) return alert("Cuenta bloqueada.");
-        
-        indicePreguntaAzar = Math.floor(Math.random() * 3);
-        const idPregunta = usuarioTemporal.idsPreguntas[indicePreguntaAzar];
-        
-        document.getElementById('mostrar-pregunta-vol').innerText = catalogoPreguntas[idPregunta];
-        document.getElementById('cambiar-paso1').style.display = 'none';
-        document.getElementById('cambiar-paso2').style.display = 'block';
-    } else {
-        alert("Cédula no registrada.");
+// Verificacion inicial al cargar la pagina
+window.onload = function() {
+    if (window.location.hash === "#iniciosesion" && !registroValido) {
+        window.location.hash = "#registro";
+    }
+    // Si estamos en dashboard, arrancar reloj y perfil
+    if (document.querySelector('.dashboard-layout')) {
+        mostrarDatosPerfil();
+        actualizarFechaHora();
+        setInterval(actualizarFechaHora, 1000);
+    }
+};
+
+// Modo oscuro
+const btnModo = document.getElementById('boton-claro-oscuro');
+if (localStorage.getItem('tema') === 'dark') {
+    document.body.classList.add('dark-mode');
+    if (btnModo) btnModo.textContent = 'MODO CLARO';
+}
+
+if (btnModo) {
+    btnModo.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            btnModo.textContent = 'MODO CLARO';
+            localStorage.setItem('tema', 'dark');
+        } else {
+            btnModo.textContent = 'MODO OSCURO';
+            localStorage.setItem('tema', 'light');
+        }
+    });
+}
+
+// Funcion de hora y fecha
+function actualizarFechaHora() {
+    const tiempoActual = new Date();
+    const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
+    const fechaActual = tiempoActual.toLocaleDateString('es-ES', opcionesFecha);  
+    
+    const opcionesHora = { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true 
+    };
+
+    const horaActual = tiempoActual.toLocaleTimeString('es-ES', opcionesHora);
+
+    if (document.getElementById('fecha')) document.getElementById('fecha').textContent = fechaActual;
+    if (document.getElementById('hora')) document.getElementById('hora').textContent = horaActual;
+}
+
+// --- FUNCIONES DEL DASHBOARD ---
+
+function mostrarDatosPerfil() {
+    const cedulaActiva = localStorage.getItem('usuario_actual');
+    const user = db.buscarPorCedula(cedulaActiva);
+    if (user) {
+        if (document.getElementById('perf-nombre')) document.getElementById('perf-nombre').textContent = user.nombre;
+        if (document.getElementById('perf-cedula')) document.getElementById('perf-cedula').textContent = user.cedula;
+        if (document.getElementById('perf-email')) document.getElementById('perf-email').textContent = user.email;
     }
 }
 
-// Compara respuesta y actualiza la clave en el nodo correspondiente.
-function ejecutarCambioClave() {
-    const respuesta = document.getElementById('cambiar-resp-input').value.trim();
-    const nueva = document.getElementById('nueva-clave-input').value.trim();
+function cambiarVistaInterna(seccion) {
+    const vistaPerfil = document.getElementById('vista-perfil');
+    const vistaSeguridad = document.getElementById('vista-seguridad');
+    const linkP = document.getElementById('link-perfil');
+    const linkS = document.getElementById('link-seguridad');
 
-    if (usuarioTemporal.preguntas[indicePreguntaAzar].toLowerCase() === respuesta.toLowerCase()) {
-        usuarioTemporal.pass = nueva;
+    if (seccion === 'perfil') {
+        if(vistaPerfil) vistaPerfil.style.display = 'block';
+        if(vistaSeguridad) vistaSeguridad.style.display = 'none';
+        linkP?.classList.add('activo');
+        linkS?.classList.remove('activo');
+    } else {
+        if(vistaPerfil) vistaPerfil.style.display = 'none';
+        if(vistaSeguridad) vistaSeguridad.style.display = 'block';
+        linkP?.classList.remove('activo');
+        linkS?.classList.add('activo');
+    }
+}
+
+function cerrarSesion() {
+    if(confirm("¿Seguro que deseas cerrar sesion?")) {
+        localStorage.removeItem('usuario_actual');
+        window.location.href = 'pagina_principal.html';
+    }
+}
+
+// --- LOGICA DE CAMBIO DE CLAVE (DENTRO DEL DASHBOARD) ---
+
+function prepararCambioClave() {
+    const cedulaActiva = localStorage.getItem('usuario_actual');
+    usuarioTemporal = db.buscarPorCedula(cedulaActiva);
+
+    if (usuarioTemporal) {
+        indicePreguntaAzar = Math.floor(Math.random() * 3);
+        const idPregunta = usuarioTemporal.idsPreguntas[indicePreguntaAzar];
+        const labelPregunta = document.getElementById('mostrar-pregunta-vol');
+        
+        if (labelPregunta) {
+            labelPregunta.innerText = catalogoPreguntas[idPregunta];
+            document.getElementById('contenedor-btn-inicio').style.display = 'none';
+            document.getElementById('seccion-verificacion').style.display = 'block';
+        }
+    }
+}
+
+function ejecutarCambioClave() {
+    const respuestaUser = document.getElementById('cambiar-resp-input').value.trim();
+    const nuevaClave = document.getElementById('nueva-clave-input').value.trim();
+
+    if (nuevaClave.length !== 6 || isNaN(nuevaClave)) {
+        alert("La clave debe ser de 6 numeros.");
+        return;
+    }
+
+    if (respuestaUser.toLowerCase() === usuarioTemporal.preguntas[indicePreguntaAzar].toLowerCase()) {
+        usuarioTemporal.pass = nuevaClave;
         db.guardarEnArchivo();
         alert("Contraseña actualizada.");
-        location.reload();
+        cambiarVistaInterna('perfil');
     } else {
         alert("Respuesta incorrecta.");
     }
-}
-
-// Inicia flujo de desbloqueo buscando al usuario por su correo electronico.
-function prepararDesbloqueo() {
-    const email = document.getElementById('rec-email-input').value.trim();
-    usuarioTemporal = db.buscarPorEmail(email);
-
-    if (usuarioTemporal) {
-        indicePreguntaAzar = Math.floor(Math.random() * 3);
-        const idPregunta = usuarioTemporal.idsPreguntas[indicePreguntaAzar];
-        
-        document.getElementById('mostrar-pregunta-rec').innerText = catalogoPreguntas[idPregunta];
-        document.getElementById('rec-paso1').style.display = 'none';
-        document.getElementById('rec-paso2').style.display = 'block';
-    } else {
-        alert("Correo no encontrado.");
-    }
-}
-
-// Valida respuesta y contraseña anterior para resetear el estado de bloqueo.
-function ejecutarDesbloqueo() {
-    const respuesta = document.getElementById('rec-resp-input').value.trim();
-    const passConfirm = document.getElementById('rec-pass-confirm').value.trim();
-
-    if (usuarioTemporal.preguntas[indicePreguntaAzar].toLowerCase() === respuesta.toLowerCase() && 
-        usuarioTemporal.pass === passConfirm) {
-        
-        usuarioTemporal.bloqueada = false;
-        usuarioTemporal.intentos = 0;
-        db.guardarEnArchivo();
-        alert("Cuenta desbloqueada.");
-        location.reload();
-    } else {
-        alert("Los datos no coinciden.");
-    }
-}
-// --- MODO OSCURO --- //
-if (localStorage.getItem('tema') === 'dark') {
-    document.body.classList.add('dark-mode');
-    if(btnModoExtra) btnModoExtra.textContent = 'MODO CLARO';
-}
-if(btnModoExtra) {
-    btnModoExtra.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const esOscuro = document.body.classList.contains('dark-mode');
-        btnModoExtra.textContent = esOscuro ? 'MODO CLARO' : 'MODO OSCURO';
-        localStorage.setItem('tema', esOscuro ? 'dark' : 'light');
-    });
 }

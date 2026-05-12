@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banca360 - Inicio Sesion</title>
+    <link rel="stylesheet" href="estilos.css" />
+    <link rel="stylesheet" href="estilos_menu_inicio_sesion.css">
+</head>
+<body class="dashboard-layout">
+
+    <aside class="sidebar-izquierda">
+        <div class="sidebar-top">
+            <div class="logo-sidebar">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo" width="60">
+                <p class="brand">Banca360</p>
+            </div>
+            <nav class="menu-lateral">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-link">Inicio</a></li>
+                    <li><a href="#" id="link-perfil" class="nav-link activo" onclick="cambiarVistaInterna('perfil')">Visualizar Perfil</a></li>
+                    <li><a href="#" id="link-seguridad" class="nav-link" onclick="cambiarVistaInterna('seguridad')">Cambiar Contraseña</a></li>
+                    <li class="separador-estetico" style="height: 1px; background: rgba(255,255,255,0.1); margin: 10px 20px;"></li>
+                    <li><button id="boton-claro-oscuro" class="btn-modo" type="button">MODO OSCURO</button></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="sidebar-footer">
+            <button onclick="cerrarSesion()" class="btn-cerrar-final" type="button" style="background:transparent; border:none; color:white; cursor:pointer; width:100%; text-align:left; padding: 20px;">
+                Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="contenido-principal">
+
+        <section id="vista-perfil">
+            <div class="vista-bienvenida">
+                <h1>Datos Personales</h1>
+                <p>Información básica de tu cuenta.</p>
+            </div>
+
+            <div class="info-perfil-grid">
+                <div class="dato-item">
+                    <label>Nombre Completo</label>
+                    <span id="perf-nombre">Cargando...</span>
+                </div>
+                <div class="dato-item">
+                    <label>Número de Cédula</label>
+                    <span id="perf-cedula">Cargando...</span>
+                </div>
+                <div class="dato-item">
+                    <label>Correo Electrónico</label>
+                    <span id="perf-email">Cargando...</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="vista-seguridad" style="display: none;">
+            <div class="vista-bienvenida">
+                <h1>Seguridad y Clave</h1>
+                <p>Protege tu cuenta actualizando tu contraseña.</p>
+            </div>
+
+            <div class="tarjeta-cambio-clave">
+                <div id="contenedor-btn-inicio">
+                    <p style="margin-bottom: 20px; color: #666;">Para cambiar tu clave de 6 dígitos, primero debes responder a una de tus preguntas de seguridad.</p>
+                    <button id="btn-iniciar-cambio" onclick="prepararCambioClave()" class="btn-primario-naranja" type="button">
+                        INICIAR PROCESO DE CAMBIO
+                    </button>
+                </div>
+
+                <div id="seccion-verificacion" style="display: none;">
+                    <div class="pregunta-box">
+                        <label style="font-weight: bold; color: #e8791f;">Pregunta de Seguridad:</label>
+                        <p id="mostrar-pregunta-vol" style="margin-top: 5px; font-size: 1.1rem; color: #333;">...</p>
+                    </div>
+                    
+                    <div class="input-grupo">
+                        <label for="cambiar-resp-input">Tu Respuesta:</label>
+                        <input type="text" id="cambiar-resp-input" placeholder="Escribe tu respuesta aquí">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="nueva-clave-input">Nueva Clave (6 números):</label>
+                        <input type="password" id="nueva-clave-input" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="Ej: 123456" style="letter-spacing: 3px;">
+                    </div>
+
+                    <button onclick="ejecutarCambioClave()" class="btn-confirmar" type="button">
+                        GUARDAR NUEVA CONTRASEÑA
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

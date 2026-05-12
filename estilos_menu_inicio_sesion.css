@@ -1,0 +1,181 @@
+/* --- ESTRUCTURA DEL DASHBOARD --- */
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR (Panel Lateral) */
+.sidebar-izquierda {
+    width: 280px;
+    background-color: var(--colorFondo-header);
+    color: white;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.logo-sidebar {
+    padding: 30px;
+    text-align: center;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+.menu-lateral ul {
+    list-style: none;
+}
+
+.nav-link {
+    display: block;
+    padding: 15px 30px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-link.activo, .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left: 4px solid white;
+}
+
+.btn-modo {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: white;
+    padding: 10px 15px; /* Más espacio interno */
+    margin: 15px 20px;  /* Margen para que no toque los bordes del sidebar */
+    cursor: pointer;
+    border-radius: 8px; /* Bordes más redondeados y modernos */
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: block;      /* Para que respete el ancho disponible */
+    width: calc(100% - 40px); /* Ajuste automático restando los márgenes */
+}
+
+.btn-modo:hover {
+    background: white;
+    color: var(--colorFondo-header); /* El color naranja cuando pasas el mouse */
+    border-color: white;
+}
+
+/* CONTENIDO PRINCIPAL */
+.contenido-principal {
+    margin-left: 280px;
+    padding: 40px;
+    width: calc(100% - 280px);
+}
+
+.vista-bienvenida {
+    margin-bottom: 30px;
+}
+
+/* TARJETAS DE DATOS PERSONALES */
+.info-perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dato-item {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.dato-item label {
+    display: block;
+    color: var(--colorNaranja);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.dato-item span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* FORMULARIO DE SEGURIDAD */
+.tarjeta-cambio-clave {
+    background: white;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.pregunta-box {
+    background: #fff5eb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--colorNaranja);
+}
+
+/* ===================================================
+   MODO OSCURO REFORZADO (Aquí es donde se arregla todo)
+   =================================================== */
+
+/* Fondo general */
+body.dark-mode {
+    background-color: #121212 !important;
+}
+
+/* Sidebar */
+body.dark-mode .sidebar-izquierda {
+    background-color: #000000 !important;
+    border-right: 1px solid #333;
+}
+
+/* TARJETAS: Obligamos a que el fondo sea oscuro y el texto claro */
+body.dark-mode .dato-item, 
+body.dark-mode .tarjeta-cambio-clave {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+    border: 1px solid #333;
+}
+
+/* Textos específicos */
+body.dark-mode .dato-item span, 
+body.dark-mode h1, 
+body.dark-mode label {
+    color: #ffffff !important;
+}
+
+body.dark-mode .dato-item label {
+    color: #ff9f43 !important; /* Naranja más vivo para contraste */
+}
+
+body.dark-mode .vista-bienvenida p, 
+body.dark-mode .instruccion-texto {
+    color: #aaaaaa !important;
+}
+
+/* Inputs (Cajas de texto) */
+body.dark-mode input {
+    background-color: #2d2d2d !important;
+    border: 1px solid #444 !important;
+    color: #ffffff !important;
+}
+
+/* Caja de pregunta */
+body.dark-mode .pregunta-box {
+    background-color: #2a1a0a !important;
+    border-color: #5d3d1a !important;
+}
