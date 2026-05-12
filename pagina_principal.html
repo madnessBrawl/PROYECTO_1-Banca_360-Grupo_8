@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
     <head>
-        <meta charset="UTF-8" /> <!-- Permite la codificacion de caracteres -->
-        <title>Banca360</title>
-        <link rel="stylesheet" href="estilos.css" /> <!-- Enlaza el archivo de estilos CSS -->
-    </head>
+        <meta charset="UTF-8" /> <title>Banca360</title>
+        <link rel="stylesheet" href="estilos.css" /> </head>
     
     <body>
         <header class="marco-superior">
             <div class="contenedor"> 
                 <div class="logo">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
-                    <span>Que tu padre es el negro jose?, que pena...</span> <!--titulo del logo, abierto al CSS-->
-                </div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <span>Que tu padre es el negro jose?, que pena...</span> </div>
                 <nav>
                     <ul>
                         <li><a href="#registro" class="nav-link">REGISTRO</a></li>
                         <li><a href="#iniciosesion" class="nav-link">INICIO DE SESIÓN</a></li>
                         <li><a href="#recuperar" class="nav-link">RECUPERAR CUENTA</a></li>
+                        <li><a href="#sesion-cerrada" class="nav-link">SALIR</a></li>
                         <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
                     </ul>
                 </nav>
@@ -26,13 +23,68 @@
 
         <main class="contenedor">
             <div class="vista-actual">
-                <h1>¡Da el paso a nuestro Banco!</h1>
-                <p></p>
+                
+                <section class="seccion-bienvenida">
+                    <table class="tabla-hero">
+                        <tr>
+                            <td class="columna-texto">
+                                <h1>¡Da el paso a nuestro Banco!</h1>
+                                <p>En <strong>Banca360</strong>, transformamos la complejidad en simplicidad. Somos la plataforma digital líder que garantiza la seguridad absoluta de tus ahorros mediante procesos de validación profunda.</p>
+                            </td>
+                            <td class="columna-imagen">
+                                <img src="" alt="" class="img-hero">
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="caracteristicas">
+                    <div class="columna">
+                        <h3>Seguridad Asegurada</h3>
+                        <p>Validación estricta de credenciales numéricas y preguntas de seguridad.</p>
+                    </div>
+                    <div class="columna">
+                        <h3>Privacidad Total</h3>
+                        <p>Oculta o muestra tu saldo con un solo clic en entornos públicos.</p>
+                    </div>
+                    <div class="columna">
+                        <h3>Modo Inteligente</h3>
+                        <p>Cambia entre modo claro y oscuro para mayor comodidad visual.</p>
+                    </div>
+                </section>
+
+                <section class="contenedor-guia-vertical">
+                    <h2>¿Cómo te puedes registrar?</h2>
+                    <p class="subtitulo-guia">Sigue estos pasos para formar parte de nuestra comunidad:</p>
+                    
+                    <div class="guia-lista">
+                        <div class="guia-paso-vertical">
+                            <span class="numero">1</span>
+                            <div class="contenido-paso">
+                                <strong>Formulario de Registro</strong>
+                                <p>Ingresa tus datos y crea tu clave de 6 dígitos.</p>
+                            </div>
+                        </div>
+                        <div class="guia-paso-vertical">
+                            <span class="numero">2</span>
+                            <div class="contenido-paso">
+                                <strong>Preguntas de Seguridad</strong>
+                                <p>Configura tus respuestas para proteger tu acceso.</p>
+                            </div>
+                        </div>
+                        <div class="guia-paso-vertical">
+                            <span class="numero">3</span>
+                            <div class="contenido-paso">
+                                <strong>Validación</strong>
+                                <p>Inicia sesión con un tiempo de espera seguro de 2 segundos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <div class="secciones-dinamicas">
                 
-                <!--Seccion de registro-->
                 <section id="registro" class="seccion-target">
                     <h2>Crea tu cuenta</h2>
                     <br>
@@ -52,7 +104,6 @@
                             <input type="email" id="correo" name="email" placeholder="juanlopez@gmail.com" required>
                         </div>
                         <br>
-                        <!-- Validacion de 6 digitos numericos requerida -->
                         <div>
                             <label for="pass">Contraseña Numérica: (Min 6 dígitos):</label><br>
                             <input type="password" id="contraseña" name="pass_reg" inputmode="numeric" pattern="[0-9]{6,}" minlength="6" placeholder="******" required>
@@ -68,11 +119,8 @@
                     <br><a href="#" class="cerrar">Cerrar</a>
                 </section>
 
-                <!-- Inicion de sesion -->
                 <section id="iniciosesion" class="seccion-target">
                     <h2>Inicio de Sesión</h2>
-                    
-                    <!-- Formulario con spinner de 2 segundos -->
                     <form id="form-login" onsubmit="event.preventDefault(); manejarLogin();">
                         <div>
                             <label for="login_nombre">Usuario (Cédula):</label><br>
@@ -86,27 +134,33 @@
                         <br>
                         <button type="submit" id="btn-entrar">Entrar al Sistema</button>
 
-                        <!-- Contenedor del Spinner: -->
                         <div id="spinner-login">
                             <div class="spinner-grafico"></div>
                             <p class="texto-espera">Validando credenciales...</p>
                         </div>
                     </form>
-                    
                     <br><a href="#" class="cerrar">Cerrar</a>
                 </section>
 
-                <!-- Seccion de recuperacion de la cuenta (Solo estructura base) -->
                 <section id="recuperar" class="seccion-target">
                     <h2>Recuperar Cuenta</h2>
-                    <p></p>
+                    <p>Módulo de recuperación en mantenimiento.</p>
                     <br><a href="#" class="cerrar">Cerrar</a>
+                </section>
+
+                <section id="sesion-cerrada" class="seccion-target">
+                    <div class="contenido-finalizado">
+                        <div class="icono-check"></div>
+                        <h2>Sesión Finalizada</h2>
+                        <p>Has salido de forma segura del <strong>Banco</strong>.</p>
+                        <br>
+                        <a href="#" class="btn-volver">Volver al Inicio</a>
+                    </div>
                 </section>
 
             </div>
         </main>
 
-        <!-- Script externo para JavaScript-->
         <script src="script.js"></script>
     </body>
 </html>
