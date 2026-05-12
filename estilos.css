@@ -34,7 +34,7 @@
     color: var(--textoHeader); /* llamada a las variable global definida en el :root*/
     padding: 15px 0;
     box-shadow: 0 2px 10px black; /* Sombra para dar profundidad al marco superior */
-    margin-bottom: 20px; /* separar la parte de abajo del encabezado y el siguiente elemento(dashdoard) */
+    margin-bottom: 0px; /* separar la parte de abajo del encabezado y el siguiente elemento(dashdoard) */
 }
 
 .marco-superior .contenedor { /*flexbox - organiza los elementos del marco superior*/
@@ -249,25 +249,72 @@ body.dark-mode input {
     border: 1px solid #444;
 }
 
+/* --- PIE DE PÁGINA (FOOTER) --- */
 
-/*------------------------------------- DASHBOARD -------------------------------------*/
-
-/* Estilos para el reloj de fecha y hora en el dashboard */
-.reloj {
-    display: flex !important; /* Fuerza a que fecha y hora estén en la misma línea */
-    flex-direction: row !important;
-    gap: 5px;
-    font-weight: 500;
+/*Espacio general del footer*/
+.pie-pagina {
+    margin-top: 200px; /*separacion entre el footer y el dashboard*/
+    padding: 40px 0;   /*espacio entre el contenido y los bordes para que no quede pegado*/
+    border-top: 1px solid #eee; /*linea separadora*/
+    color: #666;
 }
 
-.reloj span {
-    display: block; /* Pone la hora debajo de la fecha */
+.footer-flex {
+    display: flex; /*caja flexible*/
+    justify-content: space-between; /* Empuja la sección de copyright a la izquierda y todo el bloque links-legales/redes a la derecha */
+    align-items: flex-end; /* se alinean en la base (al fondo) */
 }
 
-.titulo-bienvenida {
-    color: var(--textoColor);
+/*todo el contenido del footer a la izquierda*/
+.footer-izquierda {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    height: 100px;           /* Altura opcional para notar el centrado vertical */
+    justify-content: space-between; /* Separa el texto de la parte de los links legales */
+    align-items: center; /*centra verticalmente*/
+    margin-bottom: 40px; /*titulo arriba o abajo*/
 }
+
+/*todo el contenido del footer a la derecho*/
+.footer-derecho {
+    display: flex;
+    flex-direction: column; /* Apila los links sobre las redes  haciendo que links-legales se pongan arriba de los logos*/
+    align-items: flex-end;   /* Alinea ambos hacia la derecha entre los bordes */
+    gap: 15px;               /* Espacio entre la fila de links y la de logos */
+}
+
+/* Estilos para el texto de copyright */
+.copyright {
+    font-size: 0.85rem; /* Tamaño de fuente más pequeño para el texto de copyright */
+}
+
+/* Estilos para los links legales*/
+.links-legales {
+    display: flex; 
+    gap: 20px; /*separa cada palabra entre si*/
+}
+
+.links-legales a {
+    text-decoration: none; /*elimina el subrayado azul del texto*/
+    color: #333;
+    font-size: 0.75rem;
+    font-weight: bold; /*resalta el texto*/
+}
+
+/*Logos de redes sociales*/
+.redes-sociales {
+    display: flex;
+    justify-content: flex-end; /*los logos a la derecha*/
+    gap: 15px; /*separacion entre cada logo*/
+}
+
+.redes-sociales img {
+    width: 24px;  /* anchura */
+    height: 24px; /*altura*/
+    transition: transform 0.2s ease; /* transición suave para el efecto hover */
+}
+
+/*estilo de interacción*/
+.redes-sociales img:hover {
+    transform: translateY(-3px); /* hace un salto al pasar el mouse */
+}
+
+

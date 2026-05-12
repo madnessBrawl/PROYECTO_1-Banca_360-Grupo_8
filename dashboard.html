@@ -4,21 +4,15 @@
         <meta charset="UTF-8" /> <!-- Permite la codificación de caracteres -->
         <title>Banco bien chingon</title>
         <link rel="stylesheet" href="estilos.css" /> <!-- Enlaza el archivo de estilos CSS -->
+        <link rel="stylesheet" href="dashboard-estilos.css" /> <!-- Enlaza el archivo de estilos CSS para el dashboard -->
     </head>
     <!-- Cuerpo de la pagina-->
     <body>
         <header class="marco-superior"> <!-- Marco superior encima del contenido -->
             <div class="contenedor">
-                
                 <div class="logo"> <!-- Contenedor para el logo del banco -->
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
                     <h1>Banco El Emporio</h1> <!--titulo del logo, abierto al CSS-->
-                </div>
-
-                <div id="contenedor-horaFecha" class="reloj">
-                    <span id="fecha"></span>
-                    <span class="separador"> - </span> <!-- separador para la hora -->
-                    <span id="hora"></span> 
                 </div>
 
                 <nav>
@@ -30,17 +24,61 @@
                 
             </div>
         </header>
+        
+        <!-- menu secundario de navegacion(navbar)-->
+        <nav class="navBar">
+            <div class="contenedor navBar-flex">
+                <ul class="opciones-banca">
+                    <li><a href="#pago-movil" class="nav-op-link">Pago móvil</a></li>
+                    <li><a href="#transferencia" class="nav-op-link">Transferencia</a></li>
+                </ul>
+        
+                <div id="contenedor-horaFecha" class="reloj">
+                    <span id="fecha"></span>
+                    <span class="separador"> - </span> <!-- separador para la hora -->
+                    <span id="hora"></span> 
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
 
         <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
          <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
          sin repitir el mismo codigo-->
         <main class="contenedor">  <!--contenido principal-->
+
             <div class="vista-actual">
                 <!-- Aquí debe ir el contenido del dashboard y las operaciones bancarias -->
                  <div class="titulo-bienvenida">
-                    <h1>¡Bienvenido "Usuario"!</h1> <!--titulo de bievenida al usuario-->
+                    <!-- <h1>¡Bienvenido "Usuario"!</h1> -->     <!--titulo de bievenida al usuario-->
                 </div>
             </div>
+
+
+            <!-- Pie de página con información legal y enlaces a redes sociales -->
+            <footer class="pie-pagina">
+                <div class="contenedor footer-flex">
+                    <div class="footer-izquierda">
+                        <p class="copyright">&copy; 2026 Banco El Emporio. Todos los derechos reservados.</p>
+                    </div>
+                    <div class="footer-derecho">
+                        <nav class="links-legales">
+                            <a>TERMINOS</a>
+                            <a>PRIVACIDAD</a>
+                            <a>AYUDA</a>
+                        </nav>
+                        <div class="redes-sociales">
+                            <a><img src="imagenes/twitter-logo.png" alt="X" width="26"></a>
+                            <a><img src="imagenes/youtube-logo.png" alt="YouTube"></a>
+                            <a><img src="imagenes/facebook-logo.png" alt="Facebook"></a>
+                            <a><img src="imagenes/instagram-logo.png" alt="Instagram"></a>
+                    </div>
+                </div> 
+            </footer>
         </main>
         <!-- Script externo para JavaScript-->
         <script src="script.js"></script>
