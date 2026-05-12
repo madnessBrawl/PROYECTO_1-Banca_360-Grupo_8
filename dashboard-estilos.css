@@ -92,3 +92,191 @@ body.dark-mode .reloj {
 body.dark-mode .nav-op-link:hover::after {
     background-color: var(--colorFondo-header); /* La línea se vuelve naranja en modo oscuro */
 }
+
+
+/* --- ESTILOS PARA EL CONTENIDO PRINCIPAL DEL DASHBOARD --- */
+
+.titulo-central {
+    text-align: center;
+    margin: 30px 0;
+    color: var(--textoColor);
+}
+
+.seccion-saldo-completa {
+    width: 100%; /* Ocupa el mismo ancho que la tabla */
+    margin-bottom: 35px; /* Espacio de separación con la tabla */
+}
+
+.cabecera-saldo-superior {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start; /* Alinea el botón a la izquierda */
+}
+
+/* Botón ahora fuera del cuadro */
+.btn-ocultarSaldo {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+    padding: 0;
+}
+
+.texto-accion {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Cuadro de Saldo tipo "Banner" */
+.cuadro-saldo-ancho {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 25px 30px; /* Más espacio interno */
+    width: 100%; /* Crucial para que mida lo mismo que la tabla */
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.info-saldo {
+    display: flex; /* Activamos flexbox dentro del contenedor de info */
+    justify-content: space-between; /* ¡ESTO empuja el monto a la derecha! */
+    align-items: center; /* Alinea verticalmente el texto y el número */
+    width: 100%; /* Obligatorio para que el "space-between" funcione */
+}
+
+.etiqueta-saldo {
+    font-size: 2rem;
+    color: var(--textoColor);
+    font-weight: bold;
+    margin: 0; /* Elimina el margen predeterminado del h3 para mejor alineación */
+    text-align: right; /* Alinea el texto a la derecha dentro de su espacio */
+}
+
+.monto {
+    font-size: 2rem; /* Monto más grande para destacar */
+    margin: 0;
+    color: var(--textoColor);
+}
+
+
+/* Tabla de Movimientos */
+.tabla-historial {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.tabla-historial-cabeza {
+    display: flex;
+    justify-content: space-between; /* Título a la izquierda, Link a la derecha */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tabla-titulo-ultimosMov {
+    font-size: 1.2rem;
+    color: var(--textoColor);
+    margin: 0; /* Elimina el margen predeterminado del h4 para mejor alineación */
+}
+
+.tabla-movimientos {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* Elimina el espacio entre las celdas */
+    margin-top: 15px; /* Espacio entre el título y la tabla */
+    border-radius: 8px;
+}
+
+.tabla-movimientos thead tr {
+    background-color: #f4f7f6; /* Color gris suave para resaltar los títulos */
+}
+
+.tabla-movimientos th{
+    padding: 15px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase; /* Opcional: hace que los títulos se vean más formales */
+    letter-spacing: 0.5px;
+}
+
+.tabla-movimientos td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+/* Estilo para resaltar las entradas positivas en verde y rojas como negativas */
+.positivo { 
+    background-color: rgba(50, 191, 83, 0.1); /* Verde muy transparente */
+    padding: 4px 8px;
+    border-radius: 4px;
+} 
+.negativo { 
+    background-color: rgba(231, 53, 71, 0.1); /* Rojo muy transparente */
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.link-verTodo {
+    text-decoration: none;
+    color: var(--colorFondo-header);
+    font-weight: bold;
+    font-size: 0.85rem;
+    border: 1px solid var(--colorFondo-header);
+    padding: 5px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.link-verTodo:hover {
+    background-color: var(--colorFondo-header);
+    color: white;
+}
+
+/* --- ADAPTACIÓN MODO OSCURO --- */
+body.dark-mode .cuadro-saldo-ancho,
+body.dark-mode .tabla-historial {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #eee;
+}
+
+body.dark-mode .monto,
+body.dark-mode .texto-accion {
+    color: #fff;
+}
+
+body.dark-mode .etiqueta-saldo {
+    color: #bbb;
+}
+
+body.dark-mode .subtitulo {
+    color: #bbb;
+}
+
+body.dark-mode .tabla-movimientos td {
+    border-bottom: 1px solid #444;
+    color: #eee;
+}
+
+body.dark-mode .positivo .negativo {
+    filter: brightness(1.2) saturate(1.2); 
+    /* Esto hace que el color original sea 20% más brillante y saturado */
+}
+
+
+body.dark-mode .tabla-movimientos thead tr {
+    background-color: #333; /* Gris oscuro para el modo noche */
+}
+body.dark-mode .icono-ojo {
+    filter: invert(1); /* Hace que el icono oscuro se vea blanco */
+}
+
+body.dark-mode .tabla-movimientos th {
+    color: #bbb;
+}

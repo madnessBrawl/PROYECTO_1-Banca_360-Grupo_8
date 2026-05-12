@@ -253,7 +253,7 @@ body.dark-mode input {
 
 /*Espacio general del footer*/
 .pie-pagina {
-    margin-top: 200px; /*separacion entre el footer y el dashboard*/
+    margin-top: 20px; /*separacion entre el footer y el dashboard*/
     padding: 40px 0;   /*espacio entre el contenido y los bordes para que no quede pegado*/
     border-top: 1px solid #eee; /*linea separadora*/
     color: #666;

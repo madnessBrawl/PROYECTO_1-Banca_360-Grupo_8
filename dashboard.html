@@ -45,14 +45,75 @@
          <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
          sin repitir el mismo codigo-->
         <main class="contenedor">  <!--contenido principal-->
+            <!-- titulo principal de la pagina -->
+            <section class="titulo-principal">
+                <h2 class="titulo-central">¡Bienvenido a tu banco!</h2>
+            </section>
+            
+            <!-- Pagina de pago movil-->
+            <div id="pagina-pagoMovil" class="vista-operaciones">
+                <div class="seccion-saldo-completa">
+                    <div class="cabecera-saldo-superior">
+                        <button class="btn-ocultarSaldo" onclick="toggleSaldo(this)">
+                            <img src="img/ojo-logo.png" class="icono-ojo" alt="ver">
+                            <span class="texto-accion">Ocultar/Mostrar saldo</span>
+                        </button>
+                    </div>
 
-            <div class="vista-actual">
-                <!-- Aquí debe ir el contenido del dashboard y las operaciones bancarias -->
-                 <div class="titulo-bienvenida">
-                    <!-- <h1>¡Bienvenido "Usuario"!</h1> -->     <!--titulo de bievenida al usuario-->
+                    <div class="cuadro-saldo-ancho">
+                        <div class="info-saldo">
+                            <span class="etiqueta-saldo">Saldo disponible</span>
+
+                            <h3 class="monto" data-monto="150.00">Bs. 150.00</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabla-historial">
+
+                    <div class="tabla-historial-cabeza">
+                        <h4 class="tabla-titulo-ultimosMov">Últimos movimientos</h4>
+                        <!-- Boton de ver historial completo-->
+                        <a href="historial.html" class="link-verTodo">VER TODO</a>
+                    </div>
+
+                    <table class="tabla-movimientos">
+                        <!--titulos del cuadro-->
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Movimiento</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <!-- ultimos 3 movimientos del historial-->
+                        <tbody>
+                            <tr>
+                                <td>01/09/2026</td>
+                                <td class="negativo">Salida por terceros</td>
+                                <td>Bs. -250.00</td>
+                                <td>Finalizado</td>
+                            </tr>
+                            <tr>
+                                <td>28/08/2026</td>
+                                <td class="negativo">Salida por terceros</td>
+                                <td>Bs. -500.00</td>
+                                <td>Finalizado</td>
+                            </tr>
+                            <tr>
+                                <td>25/08/2026</td>
+                                <td class="positivo">Entrada por terceros</td>
+                                <td>Bs. 100.00</td>
+                                <td>Finalizado</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
+            <!-- Pagina de transferencias-->
+            <div id="pagina-transferencias" class="vista-operaciones" style="display: none;">
+            </div>
 
             <!-- Pie de página con información legal y enlaces a redes sociales -->
             <footer class="pie-pagina">

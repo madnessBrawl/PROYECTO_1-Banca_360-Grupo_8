@@ -385,3 +385,48 @@ if(btnModoExtra) {
         localStorage.setItem('tema', esOscuro ? 'dark' : 'light');
     });
 }
+
+
+/*--------------------------- DASHBOARD ---------------------------*/ 
+
+// --- FUNCIÓN PARA CAMBIAR ENTRE PAGO MÓVIL Y TRANSFERENCIA ---
+const linksNav = document.querySelectorAll('.nav-op-link');  // Seleccionamos todos los enlaces de navegación dentro del dashboard
+
+// Agregamos un evento de clic a cada enlace para mostrar la vista correspondiente
+linksNav.forEach(link => {
+    link.addEventListener('click', (e) => {
+        // e.preventDefault(); // Evita que la página salte al ID
+
+        // Ocultar todas las vistas
+        document.querySelectorAll('.vista-operaciones').forEach(vista => {
+            vista.style.display = 'none';
+        });
+
+        // Mostrar la vista correspondiente según el href
+        const target = e.target.getAttribute('href');
+        if (target === '#pago-movil') {
+            document.getElementById('pagina-pagoMovil').style.display = 'block';
+        } else if (target === '#transferencia') {
+            document.getElementById('pagina-transferencias').style.display = 'block';
+        }
+    });
+});
+
+// --- FUNCIÓN PARA OCULTAR/MOSTRAR SALDO ---
+function toggleSaldo(boton) {
+    // Buscamos el elemento de texto del monto dentro del mismo contenedor
+    const contenedor = boton.parentElement;
+    const textoMonto = contenedor.querySelector('.monto');
+    const icono = boton.querySelector('img');
+    
+    // Si el contenido actual es el monto, lo ocultamos con asteriscos
+    if (textoMonto.textContent !== '****') {
+        textoMonto.textContent = '****';
+        icono.src = 'img/ojo-logo.png'; // Cambia el icono si lo tienes
+    } else {
+        // Recuperamos el monto real desde el atributo 'data-monto' definido en HTML
+        const montoReal = textoMonto.getAttribute('data-monto');
+        textoMonto.textContent = '$ ' + montoReal;
+        icono.src = 'img/ojo-logo.png';
+    }
+}
