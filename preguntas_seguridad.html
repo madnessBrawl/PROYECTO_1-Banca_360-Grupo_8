@@ -4,13 +4,15 @@
     <meta charset="UTF-8" />
     <title>Seguridad - Banca360</title>
     <link rel="stylesheet" href="estilos.css" />
+    <link rel="stylesheet" href="estilos_preguntas_seguridad.css" />
 </head>
-
 <body>
     <header class="marco-superior">
         <div class="contenedor"> 
             <div class="logo">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <span>Que tu padre es el negro jose?, que pena...</span> </div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/>
+                <span>Banca360</span> 
+            </div>
             <nav>
                 <ul>
                     <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
@@ -27,7 +29,6 @@
 
         <div class="secciones-dinamicas">
             <form id="form-preguntas" onsubmit="event.preventDefault(); finalizarProceso();">
-                
                 <div class="grupo-entrada">
                     <label>Pregunta 1:</label><br>
                     <select id="p1-opcion" required>
@@ -38,7 +39,6 @@
                     </select><br>
                     <input type="text" id="p1-respuesta" placeholder="Respuesta 1" required>
                 </div>
-                <br>
 
                 <div class="grupo-entrada">
                     <label>Pregunta 2:</label><br>
@@ -50,7 +50,6 @@
                     </select><br>
                     <input type="text" id="p2-respuesta" placeholder="Respuesta 2" required>
                 </div>
-                <br>
 
                 <div class="grupo-entrada">
                     <label>Pregunta 3:</label><br>
@@ -62,12 +61,11 @@
                     </select><br>
                     <input type="text" id="p3-respuesta" placeholder="Respuesta 3" required>
                 </div>
-                <br>
 
                 <button type="submit">Finalizar Registro</button>
             </form>
 
-            <div id="mensaje-exito" class="seccion-final" style="display: none;">
+            <div id="mensaje-exito" class="seccion-final">
                 <h2>¡Registro Completado!</h2>
                 <p>Tus preguntas de seguridad han sido guardadas. ¿Qué deseas hacer ahora?</p>
                 <br>
@@ -78,6 +76,7 @@
             </div>
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>

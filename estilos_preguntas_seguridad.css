@@ -1,0 +1,83 @@
+/* --- VISTA DE TÍTULO E INSTRUCCIONES --- */
+.vista-actual {
+    text-align: center;
+    padding: 40px 0 20px 0;
+}
+
+.vista-actual h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#instruccion {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* --- FORMULARIO DE PREGUNTAS --- */
+#form-preguntas {
+    max-width: 500px; 
+    margin: 20px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.grupo-entrada {
+    margin-bottom: 20px; /* Un poco más de espacio */
+}
+
+.grupo-entrada label {
+    font-weight: bold;
+    color: var(--colorFondo-header);
+    font-size: 0.9rem;
+}
+
+/* --- SECCIÓN DE ÉXITO --- */
+#mensaje-exito {
+    display: none; 
+    text-align: center;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px;
+    background: #f0fdf4; 
+    border: 1px solid #bbf7d0;
+    border-radius: 15px;
+}
+
+#mensaje-exito h2 {
+    color: #166534;
+    margin-bottom: 15px;
+}
+
+.opciones-botones {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.opciones-botones button {
+    width: auto;
+}
+
+/* --- ADAPTACIÓN AL MODO OSCURO (Solo lo específico de esta página) --- */
+body.dark-mode #form-preguntas {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+body.dark-mode #mensaje-exito {
+    background-color: #064e3b;
+    border-color: #065f46;
+}
+
+body.dark-mode #mensaje-exito h2,
+body.dark-mode #mensaje-exito p {
+    color: #ecfdf5;
+}
+
+body.dark-mode #instruccion {
+    color: #aaa;
+}
