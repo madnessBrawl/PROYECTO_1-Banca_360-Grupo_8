@@ -5,12 +5,6 @@
 }
 /* --- NAVEGACIÓN SECUNDARIA (NavBar) --- */
 
-/*opciones de cambio entre vistas(pago movil y transferencias)*/
-
-
-
-
-
 /*Estilos para la navBar*/
 .navBar {
     background-color: #f4f4f4; /* Gris claro para diferenciarlo del header naranja */
@@ -77,14 +71,6 @@
     display: block; /* Pone la hora debajo de la fecha */
 }
 
-.titulo-bienvenida {
-    color: var(--textoColor);
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    height: 100px;           /* Altura opcional para notar el centrado vertical */
-}
-
 /* --- AJUSTES PARA MODO OSCURO --- */
 body.dark-mode .navBar {
     background-color: #222; /* Fondo oscuro para el menú */
@@ -99,27 +85,41 @@ body.dark-mode .reloj {
 body.dark-mode .nav-op-link:hover::after {
     background-color: var(--colorFondo-header); /* La línea se vuelve naranja en modo oscuro */
 }
+/*------------------------------------------------------------------------------------*/
 
 
-/* --- ESTILOS PARA EL CONTENIDO PRINCIPAL DEL DASHBOARD --- */
+/*------------------------------- CONTENIDO PRINCIPAL DEL DASHBOARD ------------------------------- */
 
+/*section del titulo de bienvenida*/
+.titulo-bienvenida {
+    color: var(--textoColor);
+    display: flex; /* Activamos flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    height: 100px;           /* Altura opcional para notar el centrado vertical */
+}
+
+/*titulo de bienvenida*/
 .titulo-central {
-    text-align: center;
-    margin: 30px 0;
+    text-align: center; /* Centra el texto dentro del contenedor */
+    margin: 30px 0; /* Espacio superior e inferior */
     color: var(--textoColor);
 }
 
+/*almacena todo el contenido sobre el saldo*/
 .saldo-completa {
     width: 100%; /* Ocupa el mismo ancho que la tabla */
     margin-bottom: 35px; /* Espacio de separación con la tabla */
 }
 
+/*parte superior al cuadro del saldo*/
 .saldo-parteSuperior {
-    margin-bottom: 10px;
-    display: flex;
+    margin-bottom: 10px; /* Espacio entre el botón y el cuadro de saldo */
+    display: flex; 
     justify-content: flex-start; /* Alinea el botón a la izquierda */
 }
 
+/*ayuda a la simentria entre el cuadro de saldo y la tabla*/
 .cuadro-saldo, .tabla-historial {
     width: 100%; /* Ambos ocupan el mismo ancho */
     background-color: #fff;
@@ -128,26 +128,28 @@ body.dark-mode .nav-op-link:hover::after {
     margin-bottom: 30px;
 }
 
-/* Botón ahora fuera del cuadro */
+/* Botón para ocultar saldo */
 .ocultarSaldo {
-    background: none;
-    border: none;
-    cursor: pointer;
+    background: none; /* Sin fondo para que solo se vea el texto e icono */
+    border: none;    /* Sin borde para que no se vea el contorno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     display: flex;
-    align-items: center;
+    align-items: center; /* Alinea el texto y el icono verticalmente */
     gap: 8px; /* Espacio entre icono y texto */
-    padding: 0;
+    padding: 0; /* Elimina el padding para que el botón no tenga espacio extra */
 }
 
+/*texto al lado del boton*/
 .texto-ocultarSaldo {
-    font-size: 0.85rem;
-    color: #666;
-    font-weight: 500;
+    font-size: 0.85rem; /* Tamaño de fuente más pequeño para el texto del botón */
+    color: #666; 
+    font-weight: 500; /* Un poco más de peso para que se vea mejor */
 }
 
+/*imagen del boton ojo*/
 .icono-ojo {
-    width: 20px;
-    height: 20px;
+    width: 20px; /*anchura*/
+    height: 20px; /*altura*/
     transition: filter 0.3s ease; /* Transición suave para el cambio de imagen */
 }
 
@@ -163,6 +165,7 @@ body.dark-mode .nav-op-link:hover::after {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+/*contenido dentro del saldo*/
 .saldo-contenido {
     display: flex; /* Activamos flexbox dentro del contenedor de info */
     justify-content: space-between; /* ¡ESTO empuja el monto a la derecha! */
@@ -171,6 +174,7 @@ body.dark-mode .nav-op-link:hover::after {
     padding: 20px;
 }
 
+/*titulo dentro del cuadro de saldo*/
 .saldo-tituloInterior {
     font-size: 2rem;
     color: var(--textoColor);
@@ -181,19 +185,24 @@ body.dark-mode .nav-op-link:hover::after {
 
 .monto {
     font-size: 2rem; /* Monto más grande para destacar */
-    margin: 0;
+    margin: 0; /* Elimina el margen predeterminado del h3 para mejor alineación */
     color: var(--textoColor);
 }
 
+/*------------------------------------------------------------------------------------*/
 
-/* Tabla de Movimientos */
+/*---------------- TABLA DE ULTIMOS MOVIMIENTOS ----------------*/
+
+/* Tabla de Movimientos - CONTENEDOR PRINCIPAL */
 .tabla-historial {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #eee;
+    background: white; /* color de fondo blanco para resaltar la tabla */
+    padding: 25px; /* Espacio interno para que el contenido no esté pegado a los bordes */
+    border-radius: 12px; /* Bordes redondeados para un diseño más suave */
+    border: 1px solid #eee; /* Borde ligero para definir el contorno de la tabla */
+
 }
 
+/*CABEZA DE LA TABLA*/
 .tabla-historial-cabeza {
     display: flex;
     justify-content: space-between; /* Título a la izquierda, Link a la derecha */
@@ -202,41 +211,47 @@ body.dark-mode .nav-op-link:hover::after {
     padding: 15px 20px;
 }
 
+/* Título "Últimos Movimientos" */
 .tabla-titulo-ultimosMov {
-    font-size: 1.2rem;
-    color: var(--textoColor);
+    font-size: 1.2rem; /* Tamaño de fuente para el título */
+    color: var(--textoColor); 
     margin: 0; /* Elimina el margen predeterminado del h4 para mejor alineación */
 }
 
+/*tabla de movimientos*/
 .tabla-movimientos {
     width: 100%; /* Ocupa todo el ancho del contenedor */
     border-collapse: collapse; /* Elimina el espacio entre las celdas */
     margin-top: 15px; /* Espacio entre el título y la tabla */
-    border-radius: 8px;
+    border-radius: 8px; /* Bordes redondeados para la tabla */
 }
 
+/* Estilo para el encabezado de la tabla */
 .tabla-movimientos thead tr {
     background-color: #f4f7f6; /* Color gris suave para resaltar los títulos */
 }
 
+/* Estilo para las celdas del encabezado(fehca, movimientos, monto, estado) */
 .tabla-movimientos th{
-    padding: 12px 15px;
-    text-align: left;
-    font-size: 0.9rem;
-    color: #666;
-    letter-spacing: 0.5px;
+    padding: 12px 15px; /* Espacio interno para que el texto no esté pegado a los bordes */
+    text-align: left;  /* Alinea el texto a la izquierda para una mejor legibilidad */
+    font-size: 0.9rem; /* Tamaño de fuente para los títulos */
+    color: #666;      /* Color gris para los títulos */
+    letter-spacing: 0.5px; /* Espacio entre letras para mejorar la legibilidad */
 }
 
+/* celdas de la tabla(datos de esta) */
 .tabla-movimientos td {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    font-size: 0.95rem;
-}
+    padding: 15px; /* Espacio interno para que el texto no esté pegado a los bordes */
+    border-bottom: 1px solid #eee; /* Línea ligera para separar las filas */
+    font-size: 0.95rem; /* Tamaño de fuente para los datos */
+} 
+
 /* Estilo para resaltar las entradas positivas en verde y rojas como negativas */
 .positivo { 
     background-color: rgba(50, 191, 83, 0.1); /* Verde muy transparente */
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 4px 8px; /* Espacio interno para que el texto no esté pegado a los bordes del fondo verde */
+    border-radius: 4px; /* Bordes redondeados para que el fondo verde se vea más suave */
 } 
 .negativo { 
     background-color: rgba(220, 53, 69, 0.1); /* Rojo muy transparente */
@@ -244,17 +259,19 @@ body.dark-mode .nav-op-link:hover::after {
     border-radius: 4px;
 }
 
+/* Botón "VER TODO" */
 .link-verTodo {
-    text-decoration: none;
+    text-decoration: none; /* Elimina el subrayado azul del enlace */
     color: var(--colorFondo-header);
-    font-weight: bold;
-    font-size: 0.85rem;
-    border: 1px solid var(--colorFondo-header);
-    padding: 5px 15px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    font-weight: bold; /* Resalta el texto del enlace */
+    font-size: 0.85rem; /* Tamaño de fuente para el enlace */
+    border: 1px solid var(--colorFondo-header); /* Borde del mismo color que el texto para un diseño cohesivo */
+    padding: 5px 15px;  /*Espacio interno para que el enlace se vea como un botón */
+    border-radius: 6px; /* Bordes redondeados para un diseño más suave */
+    transition: all 0.3s ease; /* Transición suave para el efecto hover */
 }
 
+/* Efecto al poner el mouse sobre el botón "VER TODO" */
 .link-verTodo:hover {
     background-color: var(--colorFondo-header);
     color: white;
@@ -288,7 +305,7 @@ body.dark-mode .tabla-movimientos td {
 
 body.dark-mode .positivo .negativo {
     filter: brightness(1.2) saturate(1.2); 
-    /* Esto hace que el color original sea 20% más brillante y saturado */
+    /* Esto hace que el color original sea más brillante y saturado */
 }
 
 
@@ -296,7 +313,7 @@ body.dark-mode .tabla-movimientos thead tr {
     background-color: #333; /* Gris oscuro para el modo noche */
 }
 body.dark-mode .icono-ojo {
-    filter: invert(1); /* Hace que el icono oscuro se vea blanco */
+    filter: invert(1); /* cambia el icono oscuro a blanco */
 }
 
 body.dark-mode .tabla-movimientos th {

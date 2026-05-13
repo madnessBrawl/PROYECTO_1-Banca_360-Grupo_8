@@ -42,7 +42,9 @@
         <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
          <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
          sin repitir el mismo codigo-->
+         <!--NOTA: los "id" son para ayudar en los procedimientos del script.js-->
         <main class="contenedor">  <!--contenido principal-->
+
             <!-- titulo principal de la pagina -->
             <section class="titulo-principal">
                 <h2 class="titulo-central">¡Bienvenido a tu banco!</h2>
@@ -66,13 +68,16 @@
                         </div>
                     </div>
                 </div>
+
+                <!--tabla de los ultimos movimientos del historial-->
                 <div class="tabla-historial">
-                    <div class="tabla-historial-cabeza">
+                    <div class="tabla-historial-cabeza"> <!-- titulo de la tabla y boton de ver todo el historial-->
                         <h4 class="tabla-titulo-ultimosMov">Últimos movimientos</h4>
                         <!-- Boton de ver historial completo-->
                         <a href="historial.html" class="link-verTodo">VER TODO</a>
                     </div>
-
+                    
+                    <!-- contenido de la tabla -->
                     <table class="tabla-movimientos">
                         <!--titulos del cuadro-->
                         <thead>
@@ -108,19 +113,19 @@
                 </div>
             </div>
 
-            <!-- Pie de página con información legal y enlaces a redes sociales -->
+            <!-- FOOTER O pie de pagina -->
             <footer class="pie-pagina">
                 <div class="contenedor footer-flex">
-                    <div class="footer-izquierda">
+                    <div class="footer-izquierda"> <!-- Contenido hacia la izquierda -->
                         <p class="copyright">&copy; 2026 Banco El Emporio. Todos los derechos reservados.</p>
                     </div>
-                    <div class="footer-derecho">
+                    <div class="footer-derecho"> <!-- Contenido hacia la derecha -->
                         <nav class="links-legales">
                             <a>TERMINOS</a>
                             <a>PRIVACIDAD</a>
                             <a>AYUDA</a>
                         </nav>
-                        <div class="redes-sociales">
+                        <div class="redes-sociales"> <!-- Iconos de redes sociales-->
                             <a><img src="imagenes/twitter-logo.png" alt="X" width="26"></a>
                             <a><img src="imagenes/youtube-logo.png" alt="YouTube"></a>
                             <a><img src="imagenes/facebook-logo.png" alt="Facebook"></a>
@@ -131,6 +136,6 @@
             </footer>
         </main>
         <!-- Script externo para JavaScript-->
-        <script src="script.js"></script>
+        <script src="script.js"></script> <!-- Enlaza el archivo de JavaScript externo -->
     </body>
 </html>

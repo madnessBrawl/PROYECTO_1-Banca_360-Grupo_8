@@ -372,7 +372,7 @@ const linksNav = document.querySelectorAll('.nav-op-link');  // Seleccionamos to
 function actualizarFechaHora() {
     const tiempoActual = new Date();
 
-    // Configuración de formato
+    // Configuración de formato para que se vea como "15 de marzo de 2024" y "03:45 PM"
     const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
     const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: true };
 
@@ -398,10 +398,10 @@ function toggleSaldo(boton) {
     const textoMonto = document.getElementById('monto-valor');
     const icono = document.getElementById('icono-ojo-saldo');
 
-    // Obtenemos el monto real guardado en el atributo data-monto
+    // Obtenemos el monto real guardado en el atributo "data-monto"
     const montoReal = textoMonto.getAttribute('data-monto');
 
-    // Si el contenido actual es el monto, lo ocultamos con ####, de lo contrario, lo mostramos
+    // Si el contenido actual es el monto, lo ocultamos con "####", de lo contrario, lo mostramos
     if (textoMonto.textContent !== '####') {
 
         // ESTADO: VISIBLE -> OCULTAR
