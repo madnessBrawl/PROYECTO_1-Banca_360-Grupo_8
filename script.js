@@ -233,25 +233,6 @@ window.onload = function() {
     }
 };
 
-// Modo oscuro
-const btnModo = document.getElementById('boton-claro-oscuro');
-if (localStorage.getItem('tema') === 'dark') {
-    document.body.classList.add('dark-mode');
-    if (btnModo) btnModo.textContent = 'MODO CLARO';
-}
-
-if (btnModo) {
-    btnModo.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            btnModo.textContent = 'MODO CLARO';
-            localStorage.setItem('tema', 'dark');
-        } else {
-            btnModo.textContent = 'MODO OSCURO';
-            localStorage.setItem('tema', 'light');
-        }
-    });
-}
 
 // Funcion de hora y fecha
 function actualizarFechaHora() {
@@ -346,7 +327,7 @@ function ejecutarCambioClave() {
     } else {
         alert("Respuesta incorrecta.");
     }
-<<<<<<< HEAD
+
 }
 
 // Inicia flujo de desbloqueo buscando al usuario por su correo electronico.
@@ -384,16 +365,20 @@ function ejecutarDesbloqueo() {
     }
 }
 // --- MODO OSCURO --- //
-if (localStorage.getItem('tema') === 'dark') {
+const btnTema = document.getElementById('boton-claro-oscuro');
+
+// 2. Aplicamos el tema inmediatamente al cargar la pagina
+if (sessionStorage.getItem('tema') === 'dark') {
     document.body.classList.add('dark-mode');
-    if(btnModoExtra) btnModoExtra.textContent = 'MODO CLARO';
+    if (btnTema) btnTema.textContent = 'MODO CLARO';
 }
-if(btnModoExtra) {
-    btnModoExtra.addEventListener('click', () => {
+if (btnTema) {
+    btnTema.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         const esOscuro = document.body.classList.contains('dark-mode');
-        btnModoExtra.textContent = esOscuro ? 'MODO CLARO' : 'MODO OSCURO';
-        localStorage.setItem('tema', esOscuro ? 'dark' : 'light');
+
+        btnTema.textContent = esOscuro ? 'MODO CLARO' : 'MODO OSCURO';
+        sessionStorage.setItem('tema', esOscuro ? 'dark' : 'light');
     });
 }
 
@@ -441,6 +426,4 @@ function toggleSaldo(boton) {
         icono.src = 'img/ojo-logo.png';
     }
 }
-=======
-}
->>>>>>> 25ed335f2ee888a65c02c4e84729d9a6c1d299e7
+
