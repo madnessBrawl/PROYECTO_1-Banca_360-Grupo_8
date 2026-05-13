@@ -40,23 +40,33 @@
     color: var(--textoGris);
 }
 
+/* Asegura que la tabla ocupe todo el ancho */
+.tabla-hero {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Ajustes para la columna de la imagen */
 .columna-imagen {
-    width: 45%;
-    text-align: right;
+    width: 45%; 
+    text-align: center;
     vertical-align: middle;
 }
 
+/* Parametros de la imagen Hero */
 .img-hero {
-    max-width: 100%;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+    max-width: 100%;    
+    height: auto;       
+    width: 200px;      
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    transition: transform 0.3s ease; 
 }
 
 .img-hero:hover {
-    transform: scale(1.02);
+    transform: scale(1.02); /* Efecto sutil al pasar el mouse */
 }
-
-/* --- SECCIÓN DE CARACTERÍSTICAS (Las 3 columnas) --- */
+/* --- SECCION DE CARACTERISTICAS (Las 3 columnas) --- */
 .caracteristicas {
     display: flex;
     justify-content: space-between;
@@ -83,7 +93,7 @@
     color: var(--colorNaranja);
 }
 
-/* --- GUÍA DE REGISTRO VERTICAL --- */
+/* --- GUIA DE REGISTRO VERTICAL --- */
 .contenedor-guia-vertical {
     margin-top: 50px;
     max-width: 800px; 
@@ -145,7 +155,7 @@
     color: var(--textoGris);
 }
 
-/* --- ADAPTACIÓN A MODO OSCURO --- */
+/* --- ADAPTACION A MODO OSCURO --- */
 /* Estas reglas se activan cuando JavaScript añade .dark-mode al body */
 
 body.dark-mode .seccion-bienvenida {
