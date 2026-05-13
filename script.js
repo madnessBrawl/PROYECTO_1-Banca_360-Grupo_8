@@ -233,25 +233,6 @@ window.onload = function() {
     }
 };
 
-// Modo oscuro
-const btnModo = document.getElementById('boton-claro-oscuro');
-if (localStorage.getItem('tema') === 'dark') {
-    document.body.classList.add('dark-mode');
-    if (btnModo) btnModo.textContent = 'MODO CLARO';
-}
-
-if (btnModo) {
-    btnModo.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            btnModo.textContent = 'MODO CLARO';
-            localStorage.setItem('tema', 'dark');
-        } else {
-            btnModo.textContent = 'MODO OSCURO';
-            localStorage.setItem('tema', 'light');
-        }
-    });
-}
 
 
 // --- FUNCIONES DEL DASHBOARD ---
@@ -364,16 +345,20 @@ function ejecutarDesbloqueo() {
     }
 }
 // --- MODO OSCURO --- //
-if (localStorage.getItem('tema') === 'dark') {
+const btnTema = document.getElementById('boton-claro-oscuro');
+
+// 2. Aplicamos el tema inmediatamente al cargar la pagina
+if (sessionStorage.getItem('tema') === 'dark') {
     document.body.classList.add('dark-mode');
-    if(btnModoExtra) btnModoExtra.textContent = 'MODO CLARO';
+    if (btnTema) btnTema.textContent = 'MODO CLARO';
 }
-if(btnModoExtra) {
-    btnModoExtra.addEventListener('click', () => {
+if (btnTema) {
+    btnTema.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         const esOscuro = document.body.classList.contains('dark-mode');
-        btnModoExtra.textContent = esOscuro ? 'MODO CLARO' : 'MODO OSCURO';
-        localStorage.setItem('tema', esOscuro ? 'dark' : 'light');
+
+        btnTema.textContent = esOscuro ? 'MODO CLARO' : 'MODO OSCURO';
+        sessionStorage.setItem('tema', esOscuro ? 'dark' : 'light');
     });
 }
 
