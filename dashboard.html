@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
     <head>
-        <meta charset="UTF-8" /> <!-- Permite la codificación de caracteres -->
+        <meta charset="UTF-8" />
         <title>Banco bien chingon</title>
-        <link rel="stylesheet" href="estilos.css" /> <!-- Enlaza el archivo de estilos CSS -->
-        <link rel="stylesheet" href="dashboard-estilos.css" /> <!-- Enlaza el archivo de estilos CSS para el dashboard -->
+        <link rel="stylesheet" href="estilos.css" />
+        <link rel="stylesheet" href="dashboard-estilos.css" />
+        <link rel="stylesheet" href="operaciones-estilos.css" />
     </head>
-    <!-- Cuerpo de la pagina-->
     <body>
-        <header class="marco-superior"> <!-- Marco superior encima del contenido -->
+        <header class="marco-superior">
             <div class="contenedor">
-                <div class="logo"> <!-- Contenedor para el logo del banco -->
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/> <!-- Imagen del logo -->
-                    <h1>Banco El Emporio</h1> <!--titulo del logo, abierto al CSS-->
+                <div class="logo">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/>
+                    <h1>Banco El Emporio</h1>
                 </div>
 
                 <nav>
@@ -21,38 +21,33 @@
                         <a href="pagina_principal.html" class="btn-modo">SALIR</a>
                     </ul>
                 </nav>
-                
             </div>
         </header>
         
-        <!-- menu secundario de navegacion(navbar)-->
         <nav class="navBar">
             <div class="contenedor navBar-flex">
                 <ul class="opciones-banca">
                     <li><a href="#pago-movil" class="nav-op-link">Pago móvil</a></li>
                     <li><a href="#transferencia" class="nav-op-link">Transferencia</a></li>
+                    <li><a href="#deposito" class="nav-op-link">Depósito</a></li>
+                    <li><a href="historial.html" class="nav-op-link">Historial</a></li>
+                    <li><a href="menu_inicio_sesion.html" class="nav-op-link">Perfil</a></li>
                 </ul>
-        
                 <div id="contenedor-horaFecha" class="reloj">
                     <span id="fecha-navbar"></span> - <span id="hora-navbar"></span> 
                 </div>
             </div>
         </nav>
 
-        <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
-         <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
-         sin repitir el mismo codigo-->
-         <!--NOTA: los "id" son para ayudar en los procedimientos del script.js-->
-        <main class="contenedor">  <!--contenido principal-->
-
-            <!-- titulo principal de la pagina -->
+        <main class="contenedor">
             <section class="titulo-principal">
                 <h2 class="titulo-central">¡Bienvenido a tu banco!</h2>
             </section>
             
-            <!-- Pagina de pago movil-->
             <div id="pagina-SaldoHistorial" class="vista-operaciones">
+                <!-- SECCION DE SALDO: muestra el saldo actual del usuario logueado -->
                 <div class="saldo-completa">
+                    <!-- Boton para ocultar/mostrar el saldo (funcion toggleSaldo en script.js) -->
                     <div class="saldo-parteSuperior">
                         <button class="ocultarSaldo" onclick="toggleSaldo(this)">
                             <img src="imagenes/ojo-cerrado.png" id="icono-ojo-saldo" class="icono-ojo" alt="ver">
@@ -60,82 +55,129 @@
                         </button>
                     </div>
 
+                    <!-- Cuadro del saldo: el JS actualiza el contenido con el saldo real del usuario -->
+                    <!-- data-monto guarda el valor numerico para poder restaurarlo al mostrar -->
                     <div class="cuadro-saldo">
                         <div class="saldo-contenido">
                             <span class="saldo-tituloInterior">Saldo disponible</span>
-
-                            <h3 id="monto-valor" class="monto" data-monto="150.00">Bs. 150.00</h3>
+                            <h3 id="monto-valor" class="monto" data-monto="500.00">Bs. 500.00</h3>
                         </div>
+                    </div>
+                    <!-- Datos bancarios del usuario: se llenan dinamicamente por refrescarVistaBancaria() -->
+                    <div class="info-cuenta-datos">
+                        <span>N° Cuenta: <strong id="info-cuenta-usuario">—</strong></span>
+                        <span style="margin-left: 30px;">Teléfono: <strong id="info-tel-usuario">—</strong></span>
                     </div>
                 </div>
 
-                <!--tabla de los ultimos movimientos del historial-->
+                <!-- PAGO MOVIL: el formulario busca al destinatario por telefono + cedula -->
+                <!-- event.preventDefault() evita que el formulario recargue la pagina -->
+                <!-- ejecutarTransaccion() en script.js valida y procesa el pago -->
+                <div id="pago-movil" class="seccion-target">
+                    <h3>Realizar Pago Móvil</h3>
+                    <form onsubmit="event.preventDefault(); ejecutarTransaccion('Salida', 'Pago móvil');">
+                        <input type="tel" id="telefono-pm" placeholder="Número de Teléfono Destino" required>
+                        <input type="text" id="cedula-pm" placeholder="Cédula del Destinatario" required>
+                        <input type="number" id="monto-pm" placeholder="Monto Bs." step="0.01" min="0.01" required>
+                        <button type="submit">Enviar Pago</button>
+                        <center><br><a href="#" class="cerrar">Cerrar</a></center>
+                    </form>
+                </div>
+
+                <!-- TRANSFERENCIA: busca al destinatario por numero de cuenta (20 digitos) -->
+                <div id="transferencia" class="seccion-target">
+                    <h3>Realizar Transferencia</h3>
+                    <form onsubmit="event.preventDefault(); ejecutarTransaccion('Salida', 'Transferencia');">
+                        <input type="text" id="cuenta-tr" placeholder="Cuenta Destino (20 dígitos)" pattern="[0-9]{20}" required>
+                        <input type="number" id="monto-tr" placeholder="Monto Bs." step="0.01" min="0.01" required>
+                        <button type="submit">Transferir</button>
+                        <center><br><a href="#" class="cerrar">Cerrar</a></center>
+                    </form>
+                </div>
+
+                <!-- DEPOSITO: solo agrega dinero a la cuenta del usuario logueado -->
+                <!-- A diferencia de pago movil y transferencia, no necesita datos de otro usuario -->
+                <div id="deposito" class="seccion-target">
+                    <h3>Simular Depósito</h3>
+                    <form onsubmit="event.preventDefault(); ejecutarTransaccion('Entrada', 'Depósito');">
+                        <input type="number" id="monto-dp" placeholder="Monto a ingresar Bs." step="0.01" required>
+                        <button type="submit">Confirmar Depósito</button>
+                        <center><br><a href="#" class="cerrar">Cerrar</a></center>
+                    </form>
+                </div>
+
+                <!-- TABLA DE ULTIMOS MOVIMIENTOS: solo muestra las 3 mas recientes -->
+                <!-- Los botones filtrarDashboard() permiten filtrar por tipo (todos/entradas/salidas) -->
                 <div class="tabla-historial">
-                    <div class="tabla-historial-cabeza"> <!-- titulo de la tabla y boton de ver todo el historial-->
+                    <div class="tabla-historial-cabeza">
                         <h4 class="tabla-titulo-ultimosMov">Últimos movimientos</h4>
-                        <!-- Boton de ver historial completo-->
-                        <a href="historial.html" class="link-verTodo">VER TODO</a>
+                        <div class="opciones-botones">
+                            <button onclick="filtrarDashboard('todos')" class="link-verTodo" style="font-size: 0.7rem;">TODOS</button>
+                            <button onclick="filtrarDashboard('Entrada')" class="link-verTodo" style="font-size: 0.7rem;">ENTRADAS</button>
+                            <button onclick="filtrarDashboard('Salida')" class="link-verTodo" style="font-size: 0.7rem;">SALIDAS</button>
+                        </div>
                     </div>
                     
-                    <!-- contenido de la tabla -->
                     <table class="tabla-movimientos">
-                        <!--titulos del cuadro-->
                         <thead>
                             <tr>
                                 <th>Fecha</th>
                                 <th>Movimiento</th>
                                 <th>Monto</th>
-                                <th>Estado</th>
+                                <th>Detalle</th>
                             </tr>
                         </thead>
-                        <!-- ultimos 3 movimientos del historial-->
-                        <tbody>
-                            <tr>
-                                <td>01/09/2026</td>
-                                <td class="negativo">Salida por terceros</td>
-                                <td>Bs. -250.00</td>
-                                <td>Finalizado</td>
-                            </tr>
-                            <tr>
-                                <td>28/08/2026</td>
-                                <td class="negativo">Salida por terceros</td>
-                                <td>Bs. -500.00</td>
-                                <td>Finalizado</td>
-                            </tr>
-                            <tr>
-                                <td>25/08/2026</td>
-                                <td class="positivo">Entrada por terceros</td>
-                                <td>Bs. 100.00</td>
-                                <td>Finalizado</td>
-                            </tr>
+                        <!-- El tbody se llena dinamicamente por pintarFilas() en script.js -->
+                        <tbody id="cuerpo-tabla-movimientos">
                         </tbody>
                     </table>
+                    <!-- Enlace para ver el historial completo en historial.html -->
+                    <div style="text-align: center; padding: 10px 0;">
+                        <a href="historial.html" class="link-historial-completo">Ver historial completo</a>
+                    </div>
                 </div>
             </div>
 
-            <!-- FOOTER O pie de pagina -->
             <footer class="pie-pagina">
                 <div class="contenedor footer-flex">
-                    <div class="footer-izquierda"> <!-- Contenido hacia la izquierda -->
+                    <div class="footer-izquierda">
                         <p class="copyright">&copy; 2026 Banco El Emporio. Todos los derechos reservados.</p>
-                    </div>
-                    <div class="footer-derecho"> <!-- Contenido hacia la derecha -->
-                        <nav class="links-legales">
-                            <a>TERMINOS</a>
-                            <a>PRIVACIDAD</a>
-                            <a>AYUDA</a>
-                        </nav>
-                        <div class="redes-sociales"> <!-- Iconos de redes sociales-->
-                            <a><img src="imagenes/twitter-logo.png" alt="X" width="26"></a>
-                            <a><img src="imagenes/youtube-logo.png" alt="YouTube"></a>
-                            <a><img src="imagenes/facebook-logo.png" alt="Facebook"></a>
-                            <a><img src="imagenes/instagram-logo.png" alt="Instagram"></a>
-                        </div>
                     </div>
                 </div> 
             </footer>
         </main>
-        <!-- Script externo para JavaScript-->
-        <script src="script.js"></script> <!-- Enlaza el archivo de JavaScript externo -->
+        <!-- MODAL DE DETALLE DE TRANSACCION -->
+        <!-- Se muestra cuando el usuario hace clic en el boton "Ver" de cualquier movimiento -->
+        <!-- cerrarModalDetalle: cierra si se hace clic en el overlay oscuro -->
+        <!-- event.stopPropagation(): evita que el clic dentro del modal lo cierre -->
+        <!-- Los campos (detalle-id, detalle-fecha, etc.) se llenan por verDetalle() en script.js -->
+        <div id="modal-detalle" class="modal-overlay" onclick="cerrarModalDetalle(event)">
+            <div class="modal-contenido" onclick="event.stopPropagation()">
+                <button class="btn-cerrar-modal" onclick="cerrarModal()">&times;</button>
+                <h3>Detalle de Transacción</h3>
+                <div class="modal-dato">
+                    <span class="etiqueta">ID Operación</span>
+                    <span class="valor" id="detalle-id">—</span>
+                </div>
+                <div class="modal-dato">
+                    <span class="etiqueta">Fecha</span>
+                    <span class="valor" id="detalle-fecha">—</span>
+                </div>
+                <div class="modal-dato">
+                    <span class="etiqueta">Concepto</span>
+                    <span class="valor" id="detalle-concepto">—</span>
+                </div>
+                <div class="modal-dato">
+                    <span class="etiqueta">Tipo</span>
+                    <span class="valor" id="detalle-tipo">—</span>
+                </div>
+                <div class="modal-dato">
+                    <span class="etiqueta">Monto</span>
+                    <span class="valor" id="detalle-monto">—</span>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
     </body>
 </html>

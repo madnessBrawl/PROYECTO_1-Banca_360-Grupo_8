@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial Completo - Banca360</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="dashboard-estilos.css">
+    <link rel="stylesheet" href="operaciones-estilos.css">
+</head>
+<body>
+    <header class="marco-superior">
+        <div class="contenedor">
+            <div class="logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4LJkPpGKlNX-eU_iq_glaN58QhHjandQWQ&s" alt="Logo del Banco" width="100" height="100"/>
+                <h1>Banco El Emporio</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><button id="boton-claro-oscuro" class="btn-modo">MODO OSCURO</button></li>
+                    <a href="pagina_principal.html" class="btn-modo">SALIR</a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="navBar">
+        <div class="contenedor navBar-flex">
+            <ul class="opciones-banca">
+                <li><a href="dashboard.html" class="nav-op-link">Inicio</a></li>
+                <li><a href="dashboard.html#pago-movil" class="nav-op-link">Pago móvil</a></li>
+                <li><a href="dashboard.html#transferencia" class="nav-op-link">Transferencia</a></li>
+                <li><a href="dashboard.html#deposito" class="nav-op-link">Depósito</a></li>
+                <li><a href="historial.html" class="nav-op-link" style="border-bottom: 3px solid var(--colorFondo-header);">Historial</a></li>
+                <li><a href="menu_inicio_sesion.html" class="nav-op-link">Perfil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="contenedor">
+        <section class="titulo-principal">
+            <h2 class="titulo-central">Historial completo de movimientos</h2>
+        </section>
+
+        <!-- Filtros -->
+        <div class="filtros">
+            <button class="btn-filtro activo" onclick="filtrarHistorialLocal('todos', this)">Todos</button>
+            <button class="btn-filtro" onclick="filtrarHistorialLocal('Entrada', this)">Solo Entradas</button>
+            <button class="btn-filtro" onclick="filtrarHistorialLocal('Salida', this)">Solo Salidas</button>
+        </div>
+
+        <!-- Tabla de historial -->
+        <div class="tabla-historial">
+            <table class="tabla-movimientos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Movimiento</th>
+                        <th>Monto</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-historial"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal para detalle de transacción -->
+    <div id="modal-detalle" class="modal-overlay" onclick="cerrarModalDetalle(event)">
+        <div class="modal-contenido" onclick="event.stopPropagation()">
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">&times;</button>
+            <h3>Detalle de Transacción</h3>
+            <div class="modal-dato">
+                <span class="etiqueta">ID Operación</span>
+                <span class="valor" id="detalle-id">—</span>
+            </div>
+            <div class="modal-dato">
+                <span class="etiqueta">Fecha</span>
+                <span class="valor" id="detalle-fecha">—</span>
+            </div>
+            <div class="modal-dato">
+                <span class="etiqueta">Concepto</span>
+                <span class="valor" id="detalle-concepto">—</span>
+            </div>
+            <div class="modal-dato">
+                <span class="etiqueta">Tipo</span>
+                <span class="valor" id="detalle-tipo">—</span>
+            </div>
+            <div class="modal-dato">
+                <span class="etiqueta">Monto</span>
+                <span class="valor" id="detalle-monto">—</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pie-pagina">
+        <div class="contenedor footer-flex">
+            <div class="footer-izquierda">
+                <p class="copyright">&copy; 2026 Banco El Emporio. Todos los derechos reservados.</p>
+            </div>
+        </div> 
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        /**
+         * Funcion de filtrado del historial completo.
+         * A diferencia del dashboard (que solo muestra 3), aqui se muestran TODOS los movimientos.
+         * Lee el historial del usuario logueado desde localStorage usando la clave 'historial_' + cedula.
+         * Tambien actualiza la variable global historialMovimientos para que verDetalle() funcione.
+         * 
+         * @param {string} tipo - Tipo de filtro: 'todos', 'Entrada' o 'Salida'
+         * @param {HTMLElement} botonActivo - El boton que fue clickeado (para marcar como activo visualmente)
+         */
+        function filtrarHistorialLocal(tipo, botonActivo) {
+            // Obtener la cedula del usuario logueado para acceder a SU historial
+            const cedula = localStorage.getItem('usuario_actual');
+            // Cargar historial del usuario usando la clave personalizada historial_<cedula>
+            const hist = cedula ? (JSON.parse(localStorage.getItem('historial_' + cedula)) || []) : [];
+            // Actualizar la variable global para que la funcion verDetalle() de script.js pueda buscar el movimiento
+            historialMovimientos = hist;
+            const cont = document.getElementById('cuerpo-historial');
+            cont.innerHTML = "";
+
+            // Indicador visual: quitar la clase 'activo' de todos los botones y agregarla solo al clickeado
+            if (botonActivo) {
+                document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('activo'));
+                botonActivo.classList.add('activo');
+            }
+
+            // Filtrar segun el tipo seleccionado (todos muestra la lista completa)
+            const lista = tipo === 'todos' ? hist : hist.filter(m => m.tipo === tipo);
+            
+            // Si no hay movimientos, mostrar mensaje informativo
+            if (lista.length === 0) {
+                cont.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:#999;">No hay movimientos para mostrar.</td></tr>';
+                return;
+            }
+
+            // Generar filas HTML para cada movimiento con color segun tipo y boton "Ver" para detalle
+            lista.forEach(mov => {
+                const color = mov.tipo === 'Entrada' ? 'positivo' : 'negativo'; // Clase CSS verde o roja
+                const signo = mov.tipo === 'Entrada' ? '+' : '-';               // Signo visual del monto
+                cont.innerHTML += `<tr>
+                    <td>${mov.fecha}</td>
+                    <td class="${color}">${mov.concepto}</td>
+                    <td>Bs. ${signo}${mov.monto.toFixed(2)}</td>
+                    <td><button class="btn-ver-detalle" onclick="verDetalle('${mov.id}')">Ver</button></td>
+                </tr>`;
+            });
+        }
+
+        // Al cargar la pagina, mostrar todos los movimientos y marcar el boton "TODOS" como activo
+        window.addEventListener('DOMContentLoaded', () => {
+            filtrarHistorialLocal('todos', document.querySelector('.btn-filtro.activo'));
+        });
+    </script>
+</body>
+</html>
