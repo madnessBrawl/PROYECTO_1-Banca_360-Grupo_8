@@ -277,6 +277,8 @@ body.dark-mode .nav-op-link:hover::after {
     color: white;
 }
 
+/*---------------------------------------------------------------------------------------*/
+
 /* --- ADAPTACIÓN MODO OSCURO --- */
 body.dark-mode .cuadro-saldo,
 body.dark-mode .tabla-historial {
