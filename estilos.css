@@ -210,7 +210,6 @@ body.dark-mode input {
     background-color: #333;
     color: white;
     border: 1px solid #444;
-<<<<<<< HEAD
 }
 
 /* --- PIE DE PÁGINA (FOOTER) --- */
@@ -455,6 +454,4 @@ body.dark-mode .contenido-paso p {
 
 body.dark-mode .subtitulo-guia {
     color: #aaa;
-=======
->>>>>>> 25ed335f2ee888a65c02c4e84729d9a6c1d299e7
 }

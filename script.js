@@ -253,24 +253,6 @@ if (btnModo) {
     });
 }
 
-// Funcion de hora y fecha
-function actualizarFechaHora() {
-    const tiempoActual = new Date();
-    const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
-    const fechaActual = tiempoActual.toLocaleDateString('es-ES', opcionesFecha);  
-    
-    const opcionesHora = { 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        hour12: true 
-    };
-
-    const horaActual = tiempoActual.toLocaleTimeString('es-ES', opcionesHora);
-
-    if (document.getElementById('fecha')) document.getElementById('fecha').textContent = fechaActual;
-    if (document.getElementById('hora')) document.getElementById('hora').textContent = horaActual;
-}
 
 // --- FUNCIONES DEL DASHBOARD ---
 
@@ -311,7 +293,6 @@ function cerrarSesion() {
 }
 
 // --- LOGICA DE CAMBIO DE CLAVE (DENTRO DEL DASHBOARD) ---
-
 function prepararCambioClave() {
     const cedulaActiva = localStorage.getItem('usuario_actual');
     usuarioTemporal = db.buscarPorCedula(cedulaActiva);
@@ -346,7 +327,6 @@ function ejecutarCambioClave() {
     } else {
         alert("Respuesta incorrecta.");
     }
-<<<<<<< HEAD
 }
 
 // Inicia flujo de desbloqueo buscando al usuario por su correo electronico.
@@ -403,44 +383,51 @@ if(btnModoExtra) {
 // --- FUNCIÓN PARA CAMBIAR ENTRE PAGO MÓVIL Y TRANSFERENCIA ---
 const linksNav = document.querySelectorAll('.nav-op-link');  // Seleccionamos todos los enlaces de navegación dentro del dashboard
 
-// Agregamos un evento de clic a cada enlace para mostrar la vista correspondiente
-linksNav.forEach(link => {
-    link.addEventListener('click', (e) => {
-        // e.preventDefault(); // Evita que la página salte al ID
+// Funcion de hora y fecha
+function actualizarFechaHora() {
+    const tiempoActual = new Date();
 
-        // Ocultar todas las vistas
-        document.querySelectorAll('.vista-operaciones').forEach(vista => {
-            vista.style.display = 'none';
-        });
+    // Configuración de formato
+    const opcionesFecha = { day: 'numeric', month: 'long', year: 'numeric' };
+    const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: true };
 
-        // Mostrar la vista correspondiente según el href
-        const target = e.target.getAttribute('href');
-        if (target === '#pago-movil') {
-            document.getElementById('pagina-pagoMovil').style.display = 'block';
-        } else if (target === '#transferencia') {
-            document.getElementById('pagina-transferencias').style.display = 'block';
-        }
-    });
-});
+    // Obtener los elementos usando los IDs exactos del HTML
+    const elFecha = document.getElementById('fecha-navbar'); 
+    const elHora = document.getElementById('hora-navbar');
+
+    // Solo intentar escribir si los elementos existen en la página actual
+    if (elFecha && elHora) {
+        elFecha.textContent = tiempoActual.toLocaleDateString('es-ES', opcionesFecha);
+        elHora.textContent = tiempoActual.toLocaleTimeString('es-ES', opcionesHora);
+    }
+}
+
+// Ejecución inicial y configuración del intervalo
+actualizarFechaHora();
+setInterval(actualizarFechaHora, 1000);
+
 
 // --- FUNCIÓN PARA OCULTAR/MOSTRAR SALDO ---
 function toggleSaldo(boton) {
     // Buscamos el elemento de texto del monto dentro del mismo contenedor
-    const contenedor = boton.parentElement;
-    const textoMonto = contenedor.querySelector('.monto');
-    const icono = boton.querySelector('img');
-    
-    // Si el contenido actual es el monto, lo ocultamos con asteriscos
-    if (textoMonto.textContent !== '****') {
-        textoMonto.textContent = '****';
-        icono.src = 'img/ojo-logo.png'; // Cambia el icono si lo tienes
+    const textoMonto = document.getElementById('monto-valor');
+    const icono = document.getElementById('icono-ojo-saldo');
+
+    // Obtenemos el monto real guardado en el atributo data-monto
+    const montoReal = textoMonto.getAttribute('data-monto');
+
+    // Si el contenido actual es el monto, lo ocultamos con ####, de lo contrario, lo mostramos
+    if (textoMonto.textContent !== '####') {
+
+        // ESTADO: VISIBLE -> OCULTAR
+        textoMonto.textContent = '####';
+
+        // Cambia a la imagen del ojo tachado
+        icono.src = 'imagenes/ojo-cerrado.png'; 
     } else {
-        // Recuperamos el monto real desde el atributo 'data-monto' definido en HTML
-        const montoReal = textoMonto.getAttribute('data-monto');
-        textoMonto.textContent = '$ ' + montoReal;
-        icono.src = 'img/ojo-logo.png';
+        // ESTADO: OCULTO -> MOSTRAR
+        textoMonto.textContent = 'Bs. ' + montoReal;
+        icono.src = 'imagenes/ojo-abierto.png';
     }
 }
-=======
-}
->>>>>>> 25ed335f2ee888a65c02c4e84729d9a6c1d299e7
+

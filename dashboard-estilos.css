@@ -1,37 +1,22 @@
 /*------------------------------------- DASHBOARD -------------------------------------*/
-
-/* Estilos para el reloj de fecha y hora en el dashboard */
-.reloj {
-    display: flex !important; /* Fuerza a que fecha y hora estén en la misma línea */
-    flex-direction: row !important;
-    gap: 5px;
-    /* font-weight: 500; */
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #333;
+.marco-superior {
+    margin-bottom: 0 !important; /* El !important fuerza la unión si hay otra regla estorbando */
+    display: block;
 }
-
-.reloj span {
-    display: block; /* Pone la hora debajo de la fecha */
-}
-
-.titulo-bienvenida {
-    color: var(--textoColor);
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    height: 100px;           /* Altura opcional para notar el centrado vertical */
-}
-
-
 /* --- NAVEGACIÓN SECUNDARIA (NavBar) --- */
+
+/*opciones de cambio entre vistas(pago movil y transferencias)*/
+
+
+
+
 
 /*Estilos para la navBar*/
 .navBar {
     background-color: #f4f4f4; /* Gris claro para diferenciarlo del header naranja */
     border-bottom: 2px solid #ddd;
     padding: 10px 0;
-    margin-top: 0;
+    margin-top: 0px;
 }
 
 /*Detalles del contenedor de navegación*/
@@ -77,6 +62,28 @@
     background-color: black; /* Línea de selección negra */
 }
 
+/* Estilos para el reloj de fecha y hora en el dashboard */
+.reloj {
+    display: flex !important; /* Fuerza a que fecha y hora estén en la misma línea */
+    flex-direction: row !important;
+    gap: 5px;
+    /* font-weight: 500; */
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.reloj span {
+    display: block; /* Pone la hora debajo de la fecha */
+}
+
+.titulo-bienvenida {
+    color: var(--textoColor);
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    height: 100px;           /* Altura opcional para notar el centrado vertical */
+}
 
 /* --- AJUSTES PARA MODO OSCURO --- */
 body.dark-mode .navBar {
@@ -102,19 +109,27 @@ body.dark-mode .nav-op-link:hover::after {
     color: var(--textoColor);
 }
 
-.seccion-saldo-completa {
+.saldo-completa {
     width: 100%; /* Ocupa el mismo ancho que la tabla */
     margin-bottom: 35px; /* Espacio de separación con la tabla */
 }
 
-.cabecera-saldo-superior {
+.saldo-parteSuperior {
     margin-bottom: 10px;
     display: flex;
     justify-content: flex-start; /* Alinea el botón a la izquierda */
 }
 
+.cuadro-saldo, .tabla-historial {
+    width: 100%; /* Ambos ocupan el mismo ancho */
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
 /* Botón ahora fuera del cuadro */
-.btn-ocultarSaldo {
+.ocultarSaldo {
     background: none;
     border: none;
     cursor: pointer;
@@ -124,14 +139,20 @@ body.dark-mode .nav-op-link:hover::after {
     padding: 0;
 }
 
-.texto-accion {
+.texto-ocultarSaldo {
     font-size: 0.85rem;
     color: #666;
     font-weight: 500;
 }
 
+.icono-ojo {
+    width: 20px;
+    height: 20px;
+    transition: filter 0.3s ease; /* Transición suave para el cambio de imagen */
+}
+
 /* Cuadro de Saldo tipo "Banner" */
-.cuadro-saldo-ancho {
+.cuadro-saldo {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 12px;
@@ -142,14 +163,15 @@ body.dark-mode .nav-op-link:hover::after {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.info-saldo {
+.saldo-contenido {
     display: flex; /* Activamos flexbox dentro del contenedor de info */
     justify-content: space-between; /* ¡ESTO empuja el monto a la derecha! */
     align-items: center; /* Alinea verticalmente el texto y el número */
     width: 100%; /* Obligatorio para que el "space-between" funcione */
+    padding: 20px;
 }
 
-.etiqueta-saldo {
+.saldo-tituloInterior {
     font-size: 2rem;
     color: var(--textoColor);
     font-weight: bold;
@@ -176,7 +198,8 @@ body.dark-mode .nav-op-link:hover::after {
     display: flex;
     justify-content: space-between; /* Título a la izquierda, Link a la derecha */
     align-items: center;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
+    padding: 15px 20px;
 }
 
 .tabla-titulo-ultimosMov {
@@ -197,11 +220,10 @@ body.dark-mode .nav-op-link:hover::after {
 }
 
 .tabla-movimientos th{
-    padding: 15px;
+    padding: 12px 15px;
     text-align: left;
     font-size: 0.9rem;
     color: #666;
-    text-transform: uppercase; /* Opcional: hace que los títulos se vean más formales */
     letter-spacing: 0.5px;
 }
 
@@ -217,7 +239,7 @@ body.dark-mode .nav-op-link:hover::after {
     border-radius: 4px;
 } 
 .negativo { 
-    background-color: rgba(231, 53, 71, 0.1); /* Rojo muy transparente */
+    background-color: rgba(220, 53, 69, 0.1); /* Rojo muy transparente */
     padding: 4px 8px;
     border-radius: 4px;
 }
@@ -239,7 +261,7 @@ body.dark-mode .nav-op-link:hover::after {
 }
 
 /* --- ADAPTACIÓN MODO OSCURO --- */
-body.dark-mode .cuadro-saldo-ancho,
+body.dark-mode .cuadro-saldo,
 body.dark-mode .tabla-historial {
     background-color: #2a2a2a;
     border-color: #444;
@@ -247,11 +269,11 @@ body.dark-mode .tabla-historial {
 }
 
 body.dark-mode .monto,
-body.dark-mode .texto-accion {
+body.dark-mode .texto-ocultarSaldo {
     color: #fff;
 }
 
-body.dark-mode .etiqueta-saldo {
+body.dark-mode .saldo-tituloInterior {
     color: #bbb;
 }
 

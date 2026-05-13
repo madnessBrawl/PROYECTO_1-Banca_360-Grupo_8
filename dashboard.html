@@ -34,9 +34,7 @@
                 </ul>
         
                 <div id="contenedor-horaFecha" class="reloj">
-                    <span id="fecha"></span>
-                    <span class="separador"> - </span> <!-- separador para la hora -->
-                    <span id="hora"></span> 
+                    <span id="fecha-navbar"></span> - <span id="hora-navbar"></span> 
                 </div>
             </div>
         </nav>
@@ -51,25 +49,24 @@
             </section>
             
             <!-- Pagina de pago movil-->
-            <div id="pagina-pagoMovil" class="vista-operaciones">
-                <div class="seccion-saldo-completa">
-                    <div class="cabecera-saldo-superior">
-                        <button class="btn-ocultarSaldo" onclick="toggleSaldo(this)">
-                            <img src="img/ojo-logo.png" class="icono-ojo" alt="ver">
-                            <span class="texto-accion">Ocultar/Mostrar saldo</span>
+            <div id="pagina-SaldoHistorial" class="vista-operaciones">
+                <div class="saldo-completa">
+                    <div class="saldo-parteSuperior">
+                        <button class="ocultarSaldo" onclick="toggleSaldo(this)">
+                            <img src="imagenes/ojo-cerrado.png" id="icono-ojo-saldo" class="icono-ojo" alt="ver">
+                            <span class="texto-ocultarSaldo">Ocultar/Mostrar saldo</span>
                         </button>
                     </div>
 
-                    <div class="cuadro-saldo-ancho">
-                        <div class="info-saldo">
-                            <span class="etiqueta-saldo">Saldo disponible</span>
+                    <div class="cuadro-saldo">
+                        <div class="saldo-contenido">
+                            <span class="saldo-tituloInterior">Saldo disponible</span>
 
-                            <h3 class="monto" data-monto="150.00">Bs. 150.00</h3>
+                            <h3 id="monto-valor" class="monto" data-monto="150.00">Bs. 150.00</h3>
                         </div>
                     </div>
                 </div>
                 <div class="tabla-historial">
-
                     <div class="tabla-historial-cabeza">
                         <h4 class="tabla-titulo-ultimosMov">Últimos movimientos</h4>
                         <!-- Boton de ver historial completo-->
@@ -111,10 +108,6 @@
                 </div>
             </div>
 
-            <!-- Pagina de transferencias-->
-            <div id="pagina-transferencias" class="vista-operaciones" style="display: none;">
-            </div>
-
             <!-- Pie de página con información legal y enlaces a redes sociales -->
             <footer class="pie-pagina">
                 <div class="contenedor footer-flex">
@@ -132,6 +125,7 @@
                             <a><img src="imagenes/youtube-logo.png" alt="YouTube"></a>
                             <a><img src="imagenes/facebook-logo.png" alt="Facebook"></a>
                             <a><img src="imagenes/instagram-logo.png" alt="Instagram"></a>
+                        </div>
                     </div>
                 </div> 
             </footer>
