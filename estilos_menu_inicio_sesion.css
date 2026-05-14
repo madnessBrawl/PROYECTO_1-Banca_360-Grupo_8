@@ -52,21 +52,21 @@
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.6);
     color: white;
-    padding: 10px 15px; /* Más espacio interno */
-    margin: 15px 20px;  /* Margen para que no toque los bordes del sidebar */
+    padding: 10px 15px; 
+    margin: 15px 20px;  
     cursor: pointer;
-    border-radius: 8px; /* Bordes más redondeados y modernos */
+    border-radius: 8px; 
     font-weight: 600;
     font-size: 0.85rem;
     text-align: center;
     transition: all 0.3s ease;
-    display: block;      /* Para que respete el ancho disponible */
-    width: calc(100% - 40px); /* Ajuste automático restando los márgenes */
+    display: block;      
+    width: calc(100% - 40px); 
 }
 
 .btn-modo:hover {
     background: white;
-    color: var(--colorFondo-header); /* El color naranja cuando pasas el mouse */
+    color: var(--colorFondo-header); 
     border-color: white;
 }
 
@@ -97,7 +97,7 @@
 
 .dato-item label {
     display: block;
-    color: var(--colorNaranja);
+    color: var(--colorFondo-header); /* Usando tu variable naranja */
     font-size: 0.8rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -119,30 +119,55 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+.input-grupo {
+    margin-bottom: 15px;
+}
+
+.input-grupo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-grupo input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-primario-naranja, .btn-confirmar {
+    background-color: var(--colorFondo-header);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
 .pregunta-box {
     background: #fff5eb;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
-    border-left: 4px solid var(--colorNaranja);
+    border-left: 4px solid var(--colorFondo-header);
 }
 
 /* ===================================================
-   MODO OSCURO REFORZADO (Aquí es donde se arregla todo)
+   MODO OSCURO REFORZADO
    =================================================== */
 
-/* Fondo general */
 body.dark-mode {
     background-color: #121212 !important;
 }
 
-/* Sidebar */
 body.dark-mode .sidebar-izquierda {
     background-color: #000000 !important;
     border-right: 1px solid #333;
 }
 
-/* TARJETAS: Obligamos a que el fondo sea oscuro y el texto claro */
 body.dark-mode .dato-item, 
 body.dark-mode .tarjeta-cambio-clave {
     background-color: #1e1e1e !important;
@@ -151,31 +176,31 @@ body.dark-mode .tarjeta-cambio-clave {
     border: 1px solid #333;
 }
 
-/* Textos específicos */
 body.dark-mode .dato-item span, 
 body.dark-mode h1, 
-body.dark-mode label {
+body.dark-mode .input-grupo label {
     color: #ffffff !important;
 }
 
 body.dark-mode .dato-item label {
-    color: #ff9f43 !important; /* Naranja más vivo para contraste */
+    color: #ff9f43 !important; 
 }
 
-body.dark-mode .vista-bienvenida p, 
-body.dark-mode .instruccion-texto {
+body.dark-mode .vista-bienvenida p {
     color: #aaaaaa !important;
 }
 
-/* Inputs (Cajas de texto) */
 body.dark-mode input {
     background-color: #2d2d2d !important;
     border: 1px solid #444 !important;
     color: #ffffff !important;
 }
 
-/* Caja de pregunta */
 body.dark-mode .pregunta-box {
     background-color: #2a1a0a !important;
     border-color: #5d3d1a !important;
+}
+
+body.dark-mode .pregunta-box p {
+    color: #ff9f43 !important;
 }

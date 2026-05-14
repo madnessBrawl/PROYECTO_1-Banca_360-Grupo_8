@@ -200,6 +200,30 @@ function finalizarProceso() {
         }
     }
 }
+function cargarDatosPerfil() {
+    const usuario = obtenerUsuarioActual();
+    if (!usuario) return;
+
+    // Buscamos los elementos por ID 
+    const nombrePerfil = document.getElementById('perfil-nombre');
+    const cedulaPerfil = document.getElementById('perfil-cedula');
+    const emailPerfil = document.getElementById('perfil-email');
+    const telefonoPerfil = document.getElementById('perfil-telefono');
+    const cuentaPerfil = document.getElementById('perfil-cuenta');
+
+    if (nombrePerfil) nombrePerfil.textContent = usuario.nombre;
+    if (cedulaPerfil) cedulaPerfil.textContent = usuario.cedula;
+    if (emailPerfil) emailPerfil.textContent = usuario.email;
+    if (telefonoPerfil) telefonoPerfil.textContent = usuario.telefono;
+    if (cuentaPerfil) cuentaPerfil.textContent = usuario.numeroCuenta;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    refrescarVistaBancaria(); 
+    cargarDatosPerfil(); 
+    actualizarFechaHora();
+    setInterval(actualizarFechaHora, 1000);
+});
 
 /* ===========================================================================
  * MODULO DE OPERACIONES BANCARIAS E HISTORIAL (ZAHED)
