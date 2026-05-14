@@ -161,7 +161,7 @@ function manejarLogin() {
  * y crea el objeto Usuario con saldo inicial de Bs. 500.
  */
 function finalizarProceso() {
-    // Leer datos que vienen por URL desde el formulario de registro en pagina_principal.html
+    // Leer datos que vienen por URL desde el formulario de registro en index.html
     const parametros = new URLSearchParams(window.location.search);
     const nombre = parametros.get('usuario');
     const cedula = parametros.get('cedula');
@@ -282,7 +282,7 @@ let historialMovimientos = [];
 function ejecutarTransaccion(tipo, concepto) {
     const usuario = obtenerUsuarioActual();
     // Si no hay sesion activa, redirigir al login
-    if (!usuario) { alert('Debes iniciar sesión primero.'); window.location.href = 'pagina_principal.html'; return; }
+    if (!usuario) { alert('Debes iniciar sesión primero.'); window.location.href = 'index.html'; return; }
     // Delegar a la funcion especifica segun el tipo de operacion
     if (concepto === 'Pago móvil') ejecutarPagoMovil(usuario);
     else if (concepto === 'Transferencia') ejecutarTransferencia(usuario);
