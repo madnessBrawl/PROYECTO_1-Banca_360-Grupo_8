@@ -225,7 +225,97 @@ window.addEventListener('DOMContentLoaded', () => {
     setInterval(actualizarFechaHora, 1000);
 });
 
-/* ===========================================================================
+
+/**
+ * Cambia entre la vista de Datos Personales y la de Seguridad
+ */
+function cambiarVistaInterna(vista) {
+    const seccionPerfil = document.getElementById('vista-perfil');
+    const seccionSeguridad = document.getElementById('vista-seguridad');
+    const linkPerfil = document.getElementById('link-perfil');
+    const linkSeguridad = document.getElementById('link-seguridad');
+
+    if (vista === 'perfil') {
+        seccionPerfil.style.display = 'block';
+        seccionSeguridad.style.display = 'none';
+        linkPerfil.classList.add('activo');
+        linkSeguridad.classList.remove('activo');
+    } else {
+        seccionPerfil.style.display = 'none';
+        seccionSeguridad.style.display = 'block';
+        linkPerfil.classList.remove('activo');
+        linkSeguridad.classList.add('activo');
+    }
+}
+
+/*Opciones de preguntas*/
+const TEXTO_PREGUNTAS = {
+    "1": "¿Nombre de tu primera mascota?",
+    "2": "¿Ciudad donde naciste?",
+    "3": "¿Nombre de tu abuela materna?",
+    "4": "¿Color favorito?",
+    "5": "¿Nombre de tu mejor amigo de la infancia?",
+    "6": "¿Marca de tu primer carro?",
+    "7": "¿Comida favorita?",
+    "8": "¿Nombre de tu libro favorito?",
+    "9": "¿Película que más te gusta?"
+};
+
+/*se eligue una pregunta de seguridad alazar reguistrada y se ejecuta */
+function prepararCambioClave() {
+    const usuario = obtenerUsuarioActual();
+    if (!usuario) return;
+    const indiceAzar = Math.floor(Math.random() * 3);
+
+    const idPregunta = usuario.idsPreguntas[indiceAzar];
+
+    const textoPregunta = TEXTO_PREGUNTAS[idPregunta] || "Pregunta de seguridad registrada";
+
+    sessionStorage.setItem('indicePreguntaAResponder', indiceAzar);
+
+    document.getElementById('mostrar-pregunta-vol').innerText = textoPregunta;
+
+
+    document.getElementById('contenedor-btn-inicio').style.display = 'none';
+    document.getElementById('seccion-verificacion').style.display = 'block';
+}
+
+
+function ejecutarCambioClave() {
+    const usuario = obtenerUsuarioActual();
+    const indice = sessionStorage.getItem('indicePreguntaAResponder');
+    
+    const respuestaIngresada = document.getElementById('cambiar-resp-input').value.trim();
+    const nuevaClave = document.getElementById('nueva-clave-input').value.trim();
+
+    if (!respuestaIngresada || nuevaClave.length !== 6) {
+        alert("Por favor, introduce la respuesta y una nueva clave de 6 dígitos.");
+        return;
+    }
+
+
+    const respuestaCorrecta = usuario.preguntas[indice]; 
+
+    if (respuestaIngresada.toLowerCase() === respuestaCorrecta.toLowerCase()) {
+        usuario.pass = nuevaClave;
+        db.guardarEnArchivo();
+        
+        alert("¡Contraseña actualizada con éxito!");
+        location.reload(); 
+    } else {
+        alert("La respuesta a la pregunta de seguridad es incorrecta.");
+    }
+}
+/*Cierra sesion y nos redirige a pagina principal */ 
+function cerrarSesion() {
+    localStorage.removeItem('usuario_actual');
+    sessionStorage.clear();
+    alert("Has cerrado sesión correctamente. ¡Vuelve pronto!");
+    window.location.href = "index.html";
+}
+/* ====================================
+
+=======================================
  * MODULO DE OPERACIONES BANCARIAS E HISTORIAL (ZAHED)
  * 
  * Este modulo maneja:

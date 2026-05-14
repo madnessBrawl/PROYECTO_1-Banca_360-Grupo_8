@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco El Rey Seguro - Inicio sesion</title>
+    <title>Banco El Rey Seguro - Inicio de Sesión</title>
     <link rel="stylesheet" href="estilos.css" />
     <link rel="stylesheet" href="estilos_menu_inicio_sesion.css">
 </head>
@@ -33,11 +33,11 @@
     </aside>
 
     <main class="contenido-principal">
-
+        
         <section id="vista-perfil">
             <div class="vista-bienvenida">
                 <h1>Datos Personales</h1>
-                <p>Información básica de tu cuenta.</p>
+                <p>Información de tu cuenta.</p>
             </div>
 
             <div class="info-perfil-grid">
@@ -54,7 +54,7 @@
                     <span id="perfil-email">Cargando...</span>
                 </div>
                 <div class="dato-item">
-                    <label>Teléfono Movil</label>
+                    <label>Teléfono Móvil</label>
                     <span id="perfil-telefono">Cargando...</span>
                 </div>
                 <div class="dato-item">
@@ -67,21 +67,23 @@
         <section id="vista-seguridad" style="display: none;">
             <div class="vista-bienvenida">
                 <h1>Seguridad y Clave</h1>
-                <p>Protege tu cuenta actualizando tu contraseña.</p>
+                <p>Protege tu cuenta actualizando tu contraseña de acceso.</p>
             </div>
 
             <div class="tarjeta-cambio-clave">
                 <div id="contenedor-btn-inicio">
-                    <p style="margin-bottom: 20px; color: #666;">Para cambiar tu clave de 6 dígitos, primero debes responder a una de tus preguntas de seguridad.</p>
-                    <button id="btn-iniciar-cambio" onclick="prepararCambioClave()" class="btn-primario-naranja" type="button">
+                    <div class="alerta-seguridad">
+                        <p>Por seguridad, responde una de tus preguntas de desafío.</p>
+                    </div>
+                    <button onclick="prepararCambioClave()" class="btn-primario-naranja" type="button">
                         INICIAR PROCESO DE CAMBIO
                     </button>
                 </div>
 
                 <div id="seccion-verificacion" style="display: none;">
                     <div class="pregunta-box">
-                        <label style="font-weight: bold; color: #e8791f;">Pregunta de Seguridad:</label>
-                        <p id="mostrar-pregunta-vol" style="margin-top: 5px; font-size: 1.1rem; color: #333;">...</p>
+                        <label>Pregunta de Seguridad:</label>
+                        <p id="mostrar-pregunta-vol">...</p>
                     </div>
                     
                     <div class="input-grupo">
@@ -91,7 +93,7 @@
 
                     <div class="input-grupo">
                         <label for="nueva-clave-input">Nueva Clave (6 números):</label>
-                        <input type="password" id="nueva-clave-input" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="Ej: 123456" style="letter-spacing: 3px;">
+                        <input type="password" id="nueva-clave-input" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="Ej: 123456">
                     </div>
 
                     <button onclick="ejecutarCambioClave()" class="btn-confirmar" type="button">
@@ -100,7 +102,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <script src="script.js"></script>
